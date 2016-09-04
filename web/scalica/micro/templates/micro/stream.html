@@ -1,0 +1,22 @@
+{% extends "micro/base.html" %}
+{% load humanize %}
+{% load staticfiles %}
+{% block sidebar %}
+<img src="{% static "micro/images/user.png" %}" alt="Generic User"/> <br>
+{{ stream_user.username }}
+{% if form %}
+  <form action="/micro/follow/" method="post">
+    {% csrf_token %}
+    <input type="hidden" id="id_followee" name="followee" value="{{ stream_user.id }}" />
+    <input type="submit" value="Follow" />
+  </form>
+{% endif %}
+{% endblock %}
+{% block content %}
+{% for post in posts %}
+  <li>
+    {{ post.text }} ({{ post.pub_date|naturaltime }})
+  </li>
+{% endfor %}
+{# TODO: see complete pagination example in Django doc for more #}
+{% endblock %}

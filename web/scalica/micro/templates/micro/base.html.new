@@ -1,0 +1,66 @@
+{% block doctype %}<!DOCTYPE html>{% endblock %}
+{% load i18n %}
+{% load staticfiles %}
+<html lang="{{ LANGUAGE_CODE }}">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>{% block title %}{% endblock %}{% trans "Scalica" %}</title>
+  <link rel="icon" href="{{ STATIC_URL }}site/img/favicon.ico" type="image/png" />
+ 
+  {% block meta_tags %}{% endblock %}
+    <link rel="stylesheet" href="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/css/bootstrap.min.css" />
+    {% comment %}
+    <link href="{{ STATIC_URL }}site/css/style.css" rel="stylesheet" media="screen" type="text/css" />
+    {% endcomment %}
+    <link rel="stylesheet" type="text/css" media="screen" href="{% static 'micro/style.css' %}" />
+    {% block stylesheet %}{% endblock %}
+    <script src="http://code.jquery.com/jquery-1.11.0.min.js"></script>
+    <script src="http://code.jquery.com/jquery-migrate-1.2.1.min.js"></script>
+    <script src="http://netdna.bootstrapcdn.com/bootstrap/3.1.1/js/bootstrap.min.js"></script>
+    {% comment %} <script src="{% url "js_settings" %}"></script> {% endcomment %}
+    {% block js %}{% endblock %}
+    {% block extrahead %}{% endblock %}
+  </head>
+  <body class="{% block bodyclass %}{% endblock %}">
+    {% block page %}
+      <div class="wrapper">
+        <div id="header" class="clearfix">
+          <h1>{% trans "Scalica" %}</h1>
+          {% if user.is_authenticated %}
+            {{ user.username }}
+            <a href="{% url 'micro:logout' %}">Log Out</a>
+          {% else %}
+            <a href="{% url 'micro:login' %}">Log In</a>
+          {% endif %}
+          {% block header_navigation %}
+          {% comment %}{% include "utils/header_navigation.html" %}{% endcomment %}
+          {% endblock %}
+          {% block language_chooser %}
+          {% comment %}{% include "utils/language_chooser.html" %}{% endcomment %}
+          {% endblock %}
+        </div>
+        <div id="sidebar" class="clearfix">
+          {% block sidebar %}
+          {% endblock %}
+        </div>  
+        <div id="content" class="clearfix">
+          {% block content %}
+          {% endblock %}
+        </div>  
+        <div id="footer" class="clearfix">
+          <p> Copyright Scalica 2015 </p>
+          {% block footer_navigation %}
+          {% comment %} {% include "utils/footer_navigation.html" %} {% endcomment %}
+          {% endblock %}
+        </div>
+      </div>
+    {% endblock %}
+    {% block extrabody %}{% endblock %}  
+  </body>
+</html>
+
+
+
+
+

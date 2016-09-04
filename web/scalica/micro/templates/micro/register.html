@@ -1,0 +1,10 @@
+{% extends "micro/base.html" %}
+{% block content %}
+<form action="/micro/register/" method="post">
+<table class="registerTable">
+  {% csrf_token %}
+  {{ form.as_table }}
+</table>
+  <input type="submit" value="Submit" />
+</form>
+{% endblock %}
