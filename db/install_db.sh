@@ -3,6 +3,7 @@
 sql_file=scalica.sql
 
 set -x
+
 if [ $# -gt 0 ]; then
   case $1 in
     "remove")
@@ -14,4 +15,4 @@ if [ $# -gt 0 ]; then
   esac
 fi
 
-mysql -u root < ${sql_file}
+mysql -u root -p < ${sql_file}
