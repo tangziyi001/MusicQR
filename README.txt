@@ -24,3 +24,5 @@ $ cd env
 $ source ./bin/activate
 $ cd web/scalica
 $ python manage.py runserver
+
+Access the site at http://localhost:8000/micro
