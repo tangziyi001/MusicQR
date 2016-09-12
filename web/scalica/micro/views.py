@@ -68,10 +68,9 @@ def register(request):
 @login_required
 def home(request):
   '''List of recent posts by people I follow'''
-  my_posts = Post.objects.filter(user=request.user).order_by('-pub_date')
-  if my_posts:
-    my_post = my_posts[0]
-  else:
+  try:
+    my_post = Post.objects.filter(user=request.user).order_by('-pub_date')[0]
+  except IndexError:
     my_post = None
   follows = [o.followee_id for o in Following.objects.filter(
     follower_id=request.user.id)]

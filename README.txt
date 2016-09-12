@@ -12,9 +12,9 @@ $ ./install_db.sh
 $ cd ..
 
 Sync the database
-$ cd env
-$ source ./bin/activate
+$ source ./env/bin/activate
 $ cd web/scalica
+$ python manage.py makemigrations micro
 $ python manage.py migrate
 
 
