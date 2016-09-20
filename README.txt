@@ -2,7 +2,7 @@ First installation:
 $ ./first_install.sh
 
 Install mysql-server
-$ sudo apt-get update; sudo apt-get install mysql-server
+$ sudo apt-get update; sudo apt-get install mysql-server libmysqlclient-dev python-dev
 (Set a mysql root password)
 
 Install the proper databases
@@ -20,8 +20,7 @@ $ python manage.py migrate
 
 # After the first installation, from the project's directory
 Run the server:
-$ cd env
-$ source ./bin/activate
+$ source ./env/bin/activate
 $ cd web/scalica
 $ python manage.py runserver
 
