@@ -1,9 +1,10 @@
 First installation:
-$ ./first_install.sh
 
-Install mysql-server
-$ sudo apt-get update; sudo apt-get install mysql-server libmysqlclient-dev python-dev
+Install required packages.
+$ sudo apt-get update; sudo apt-get install mysql-server libmysqlclient-dev python-dev python-virtualenv
 (Set a mysql root password)
+
+$ ./first_install.sh
 
 Install the proper databases
 $ cd db
