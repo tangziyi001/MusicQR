@@ -1,3 +1,16 @@
 # Final Project for Large Scale Web Application
 
 This is the repository for final project of CSCI-UA480 Large Scale Web Application.
+
+## Database
+MySQL
+### Configure DB
+When the application is run on a new machine, make sure to install mysql and run ./install_db
+
+## Development
+It is recommanded to run local test on Linux machine. Follow the README.txt to setup the environment and tools
+
+## Deployment
+Django Application: ubuntu@35.163.220.222
+Relational Database:
+Batch Job and RPC Server: ubuntu@35.164.168.170
