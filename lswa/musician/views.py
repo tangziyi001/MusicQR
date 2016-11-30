@@ -16,8 +16,11 @@ def artist_login(request):
         username = request.POST['username']
         password = request.POST['password']
         login_user = authenticate(username=username, password=password)
-        login(request, login_user)
-        return redirect('/musician/artist/'+username+'/')
+        if login_user is not None:
+            login(request, login_user)
+            return redirect('/musician/artist/'+username+'/')
+        else:
+            return redirect('/musician/login')
 def register(request):
     if request.method == 'GET':
         return render(request,'musician/register.html')
@@ -36,7 +39,7 @@ def download(request):
 
 @login_required
 def artist(request, artist_id):
-    if request.user.is_authenticated:
+    if request.user.is_authenticated and request.user.username == artist_id:
         return HttpResponse("Hello %s" % artist_id)
     else:
         return redirect('login')
