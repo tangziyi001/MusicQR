@@ -8,6 +8,9 @@ def index(request):
 def login(request):
     return render(request,'musician/login.html')
 
+def register(request):
+    return render(request,'musician/register.html')
+
 def download(request):
     return render(request,'musician/download.html')
 
