@@ -5,5 +5,8 @@ from django.http import HttpResponse
 def index(request):
     return render(request,'musician/index.html')
 
+def login(request):
+    return render(request,'musician/login.html')
+
 def artist(request, artist_id):
     return HttpResponse("Hello %s" % artist_id)
