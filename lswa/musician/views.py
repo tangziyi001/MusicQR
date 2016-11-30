@@ -23,7 +23,7 @@ def register(request):
         user.save()
         login_user = authenticate(username=username, password=password)
         login(request, login_user)
-        return redirect('artist/'+username+'/')
+        return redirect('/musician/artist/'+username+'/')
 
 def download(request):
     return render(request,'musician/download.html')
