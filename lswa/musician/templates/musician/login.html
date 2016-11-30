@@ -2,6 +2,7 @@
 {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
 
 <form action="" method='POST'>
+    {% csrf_token %}
     <input name='username' type='text'>
     <input name='password' type='password'>
     <input type='submit'>

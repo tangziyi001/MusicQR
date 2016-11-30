@@ -10,8 +10,14 @@ def index(request):
     return render(request,'musician/index.html')
 
 def artist_login(request):
-    return render(request,'musician/login.html')
-
+    if request.method == 'GET':
+        return render(request,'musician/login.html')
+    else:
+        username = request.POST['username']
+        password = request.POST['password']
+        login_user = authenticate(username=username, password=password)
+        login(request, login_user)
+        return redirect('/musician/artist/'+username+'/')
 def register(request):
     if request.method == 'GET':
         return render(request,'musician/register.html')
