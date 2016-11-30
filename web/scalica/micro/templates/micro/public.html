@@ -1,0 +1,6 @@
+{% extends "micro/base.html" %}
+{% block content %}
+  <h1>Welcome to Scalica</h1></br>
+  New Users: <a href="{% url 'micro:register' %}">Register</a> </br>
+  Existing Users: <a href="{% url 'micro:login' %}">Log In</a>
+{% endblock %}

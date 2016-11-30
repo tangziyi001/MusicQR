@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+{% load staticfiles %}
+<html>
+<head>
+  <link rel="stylesheet" type="text/css" href="{% static 'micro/style.css' %}" />
+  <title>Scalica</title>
+</head> 
+<body>
+  <div id="header">
+    {% if user.is_authenticated %}
+      {{ user.username }}
+      <a href="{% url 'micro:logout' %}">Log Out</a>
+    {% else %}
+      <a href="{% url 'micro:login' %}">Log In</a>
+    {% endif %}
+    {% block header %}{% endblock header %}
+  </div>
+  <div id="sidebar">
+    {% block sidebar %}{% endblock sidebar %}
+  </div>
+  <div id="content">
+    {% block content %}{% endblock content %}
+  </div>
+  <div id="footer">
+    <p>Copyright Scalica</p>
+    {% block footer %}{% endblock footer %}
+  </div>
+</body>
+</html>

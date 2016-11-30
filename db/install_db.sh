@@ -1,9 +1,7 @@
 #!/bin/bash
 
 sql_file=musician.sql
-
 set -x
-
 if [ $# -gt 0 ]; then
   case $1 in
     "remove")
