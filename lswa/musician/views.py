@@ -9,7 +9,15 @@ def login(request):
     return render(request,'musician/login.html')
 
 def register(request):
-    return render(request,'musician/register.html')
+    if request.method == 'GET':
+        return render(request,'musician/register.html')
+    else:
+        name = request.POST['username']
+        email = request.POST['email']
+        password = request.POST['password']
+        user = User.object.create_user(name, email, password)
+        user.save()
+        return render(request,'musician/login.html')
 
 def download(request):
     return render(request,'musician/download.html')
