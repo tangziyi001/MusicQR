@@ -75,13 +75,6 @@ WSGI_APPLICATION = 'lswa.wsgi.application'
 # Database
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
-#DATABASES = {
-#    'default': {
-#        'ENGINE': 'django.db.backends.mysql',
-#        'NAME': os.path.join(BASE_DIR, 'db.sqlite3'),
-#    }
-#}
-
 DATABASES = {
   'default': {
     'ENGINE': 'django.db.backends.mysql',
@@ -130,3 +123,6 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 STATIC_URL = '/static/'
+
+LOGIN_URL = '/musician/login/'
+LOGIN_REDIRECT_URL = '/musician/artist/'
