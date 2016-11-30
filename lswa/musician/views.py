@@ -8,5 +8,11 @@ def index(request):
 def login(request):
     return render(request,'musician/login.html')
 
+def download(request):
+    return render(request,'musician/download.html')
+
 def artist(request, artist_id):
     return HttpResponse("Hello %s" % artist_id)
+
+def statistics(request, artist_id):
+    return render(request,'musician/statistics.html')
