@@ -10,9 +10,13 @@
         {% block nav %}
          <nav>
 	<a href="/musician/">Index</a> |
-	<a href="/musician/login/">Login</a> |
+	{% if user.is_authenticated %}
+        <a href="/musician/logout">Logout</a>
+        {% else %}
+        <a href="/musician/login/">Login</a> |
 	<a href="/musician/register/">Register</a>
-	</nav> 
+        {% endif %} 
+        </nav>
         {% endblock %}
     </div>
     <div id='content'>

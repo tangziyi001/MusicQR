@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -35,6 +35,10 @@ def register(request):
         login_user = authenticate(username=username, password=password)
         login(request, login_user)
         return redirect('/musician/artist/'+username+'/')
+
+def artist_logout(request):
+    logout(request)
+    return redirect('/musician')
 
 def download(request):
     return render(request,'musician/download.html')
