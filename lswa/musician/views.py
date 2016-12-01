@@ -4,6 +4,7 @@ from django.contrib.auth.models import User
 from django.contrib.auth import authenticate, login
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -20,6 +21,7 @@ def artist_login(request):
             login(request, login_user)
             return redirect('/musician/artist/'+username+'/')
         else:
+	    messages.add_message(request, messages.ERROR, "Login Invalid, Please Try Again")
             return redirect('/musician/login')
 def register(request):
     if request.method == 'GET':
@@ -37,13 +39,14 @@ def register(request):
 def download(request):
     return render(request,'musician/download.html')
 
-@login_required
 def artist(request, artist_id):
     if request.user.is_authenticated and request.user.username == artist_id:
-        return HttpResponse("Hello %s" % artist_id)
+        # Retrieve necessary data to display for an artist
+        context = {}
+        context['artist'] = artist_id
+        return render(request, 'musician/artist.html',context)
     else:
-        return redirect('login')
+        return redirect('/musician/login')
 
-@login_required
 def statistics(request, artist_id):
     return render(request,'musician/statistics.html')

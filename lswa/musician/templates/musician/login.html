@@ -1,5 +1,10 @@
 <h1> Login </h1>
-{% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
+{% if messages %}
+    {% for message in messages %}
+    <p><strong>{{message}}</strong></p>
+    {% endfor%}
+{% endif %}
+    
 
 <form action="" method='POST'>
     {% csrf_token %}
