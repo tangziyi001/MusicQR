@@ -1,7 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
@@ -36,6 +36,10 @@ def register(request):
         login(request, login_user)
         return redirect('/musician/artist/'+username+'/')
 
+def artist_logout(request):
+    logout(request)
+    return redirect('/musician')
+
 def download(request):
     return render(request,'musician/download.html')
 
@@ -48,5 +52,7 @@ def artist(request, artist_id):
     else:
         return redirect('/musician/login')
 
-def statistics(request, artist_id):
-    return render(request,'musician/statistics.html')
+def statistics(request, artist_id, music_id):
+    if request.user.is_authenticated and request.user.username == artist_id:
+        context['artist'] = artist_id
+    	return render(request,'musician/statistics.html')

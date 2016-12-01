@@ -1,3 +1,5 @@
+{% extends 'musician/base.html' %}
+{% block content %}
 <h1> Login </h1>
 {% if messages %}
     {% for message in messages %}
@@ -12,4 +14,5 @@
     <p><span>Password: <input name='password' type='password'></span></p>
     <input type='submit'>
 </form>
+{% endblock %}
 
