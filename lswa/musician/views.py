@@ -48,5 +48,7 @@ def artist(request, artist_id):
     else:
         return redirect('/musician/login')
 
-def statistics(request, artist_id):
-    return render(request,'musician/statistics.html')
+def statistics(request, artist_id, music_id):
+    if request.user.is_authenticated and request.user.username == artist_id:
+        context['artist'] = artist_id
+    	return render(request,'musician/statistics.html')

@@ -22,4 +22,10 @@ class Music(models.Model):
     def __str__(self):
         return self.title
 
-
+class Download(models.Model):
+    music = models.ForeignKey(
+        Music,
+        on_delete = models.CASCADE,
+        verbose_name = 'downloaded music'
+    )
+    

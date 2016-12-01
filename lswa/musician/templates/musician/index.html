@@ -1,5 +1,6 @@
-{% load static %}
-<link rel="stylesheet" type="text/css" href="{% static 'musician/style.css' %}" />
+{% extends 'musician/base.html' %}
+{% block content %}
 <h1> Welcome to Musician Center</h1>
 <button> Download a music</button>
 <button> Upload a music</button>
+{% endblock %}

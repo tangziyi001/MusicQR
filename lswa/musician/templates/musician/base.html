@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html lang='en'>
+<head>
+   {% load static %}
+   <link rel="stylesheet" type="text/css" href="{% static 'musician/style.css' %}" />
+   <title>{% block title %}Musician Center{% endblock %}</title>
+</head>
+<body>
+    <div id='nav'>
+        {% block nav %}
+         <nav>
+	<a href="/musician/">Index</a> |
+	<a href="/musician/login/">Login</a> |
+	<a href="/musician/register/">Register</a>
+	</nav> 
+        {% endblock %}
+    </div>
+    <div id='content'>
+        {% block content %}
+        {% endblock %}
+    </div>
+</body>
+</html>
