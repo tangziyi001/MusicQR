@@ -2,9 +2,6 @@
 
 This is the repository for final project of CSCI-UA480 Large Scale Web Application.
 
-## Database
-MySQL
-
 ### Configure DB
 When the application is run on a new machine, make sure to install mysql and run ./install_db
 
@@ -14,5 +11,5 @@ When the application is run on a new machine, make sure to install mysql and run
 
 ## Deployment
 * Django Application: ubuntu@35.163.220.222
-* Relational Database:
-* Batch Job and RPC Server: ubuntu@35.164.168.170
+* Relational Database: tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com 
+* Batch Job and RPC Server: ubuntu@35.163.99.152

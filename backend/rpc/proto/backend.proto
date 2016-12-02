@@ -1,0 +1,16 @@
+syntax = "proto3";
+
+// The backend computation result retrieval service
+service Backend {
+  rpc GetDownloadRankDaily (MusicRequest) returns (RankInfo) {}
+}
+
+message MusicRequest {
+  string date = 1;
+  int64 music_id = 2;
+}
+
+message RankInfo {
+  string date = 1;
+  int64 rankNumber = 2; 
+}
