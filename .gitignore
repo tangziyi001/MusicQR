@@ -1,6 +1,7 @@
 *.pyc
 *.swp
 settings.py
-lswa/musician/music/
+lswa/musician/music/*
+!lswa/musician/music/.gitkeep
 migrations/
 env/
