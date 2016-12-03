@@ -24,12 +24,29 @@ int main(int argc, const char **argv)
 {
   string url(argc >= 2 ? argv[1] : HOST);
   const string user(argc >= 3 ? argv[2] : USER);
-  const string pass(argc >= 4 ? argv[3] : PASS);
+  const string pass(argc >= 4 ? argv[3] : PASSWORD);
   const string database(argc >= 5 ? argv[4] : DB);
 
   try {
-    
-    
+      sql::Driver *driver;
+      sql::Connection *con;
+      sql::Statement *stmt;
+      sql::ResultSet *res;
+      /* Create a connection */
+      driver = get_driver_instance();
+      con = driver->connect(HOST, USER, PASSWORD);
+      /* Connect to the MySQL musician database */
+      con->setSchema("musician");
+      stmt = con->createStatement();
+      res = stmt->executeQuery("SELECT * FROM musician_music");
+      while (res->next()) {
+          cout << "\t... MySQL replies: ";
+	  /* Access column data by alias or column name */
+	  cout << res->getString("title") << endl;
+      }
+      delete res;
+      delete stmt;
+      delete con;
   } catch (sql::SQLException &e) {
     /*
       MySQL Connector/C++ throws three different exceptions:
