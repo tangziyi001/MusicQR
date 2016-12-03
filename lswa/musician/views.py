@@ -31,8 +31,9 @@ def register(request):
         login(request, login_user)
         return redirect('/musician/artist/'+username+'/')
 
-def download(request):
-    return render(request,'musician/download.html')
+def download(request, music_id):
+	
+    return render(request,'musician/download.html', {'music_id':music_id})
 
 @login_required
 def artist(request, artist_id):
