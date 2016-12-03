@@ -61,9 +61,7 @@ def download(request, file_name):
     response['Content-Length'] = os.stat(file_path).st_size
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     return response
-
-    return render(request,'musician/download.html')
-
+    
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:
