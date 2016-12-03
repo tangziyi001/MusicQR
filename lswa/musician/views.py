@@ -55,13 +55,11 @@ def download(request, file_name):
     file_path = dir_path + '/music/' + file_name
     file_wrapper = FileWrapper(file(file_path, 'rb'))
     file_mimetype = mimetypes.guess_type(file_path)
-
     response = HttpResponse(file_wrapper, content_type=file_mimetype)
     response['X-Sendfile'] = file_path
     response['Content-Length'] = os.stat(file_path).st_size
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     return response
-    
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:
