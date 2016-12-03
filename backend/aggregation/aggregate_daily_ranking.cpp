@@ -13,26 +13,22 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#define EXAMPLE_HOST "localhost"
-#define EXAMPLE_USER "root"
-#define EXAMPLE_PASS "tzy@202326"
-#define EXAMPLE_DB "world"
+#define HOST "tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com"
+#define USER "ubuntu"
+#define PASSWORD "largescaleproject"
+#define DB "backend"
 
 using namespace std;
 
 int main(int argc, const char **argv)
 {
-  string url(argc >= 2 ? argv[1] : EXAMPLE_HOST);
-  const string user(argc >= 3 ? argv[2] : EXAMPLE_USER);
-  const string pass(argc >= 4 ? argv[3] : EXAMPLE_PASS);
-  const string database(argc >= 5 ? argv[4] : EXAMPLE_DB);
-
-  cout << "Connector/C++ tutorial framework..." << endl;
-  cout << endl;
+  string url(argc >= 2 ? argv[1] : HOST);
+  const string user(argc >= 3 ? argv[2] : USER);
+  const string pass(argc >= 4 ? argv[3] : PASS);
+  const string database(argc >= 5 ? argv[4] : DB);
 
   try {
-
-    /* INSERT TUTORIAL CODE HERE! */
+    
     
   } catch (sql::SQLException &e) {
     /*
