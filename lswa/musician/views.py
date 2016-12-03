@@ -62,13 +62,15 @@ def artist(request, artist_id):
 	    try:
  	        # Create a new Music record
 	        # The download url should be a music page
-                newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], rate=0, download_url="") 
+                newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], file_name="", rate=0, download_url="") 
 	        newMusic.save()
                 # Retrieve the suffix of the file
 	        ext = find_ext(request.FILES['music'].name)
                 # The Music ID is automatically created after save()
+                newMusic.file_name = str(newMusic.id) + ext
+                newMusic.save()
 	        dir_path = os.path.dirname(os.path.realpath(__file__))
-	        handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+str(newMusic.id)+ext)
+	        handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+newMusic.file_name)
 		messages.add_message(request, messages.INFO, "Music Upload Successful")
 	        return redirect('/musician/artist/'+artist_id)
 	    except Exception:
