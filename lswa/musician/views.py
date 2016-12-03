@@ -8,7 +8,6 @@ from django.contrib import messages
 import os
 from .models import Music
 from handle_file import handle_uploaded_file, find_ext 
-
 # Create your views here.
 
 def index(request):
@@ -47,21 +46,7 @@ def artist_logout(request):
     logout(request)
     return redirect('/musician')
 
-def music_query(request, token):
-    # find token in models
-
-    # if token is in database
-
-
-
-def download(request, music_id):
-    # generate download link (write in def artsit)
-    # http://stackoverflow.com/questions/5320730/link-generator-using-django-or-any-python-module
-
-    # find music_id in models and get file name
-
-    #file_name = ..    
-
+def download(request):
     return render(request,'musician/download.html')
 
 def artist(request, artist_id):
@@ -77,19 +62,13 @@ def artist(request, artist_id):
 	    try:
  	        # Create a new Music record
 	        # The download url should be a music page
-            newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], file_name="", rate=0, download_url="") 
-            # Retrieve the suffix of the file
-            ext = find_ext(request.FILES['music'].name)
-
-            # The Music ID is automatically created after save()
+                newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], rate=0, download_url="") 
+	        newMusic.save()
+                # Retrieve the suffix of the file
+	        ext = find_ext(request.FILES['music'].name)
+                # The Music ID is automatically created after save()
 	        dir_path = os.path.dirname(os.path.realpath(__file__))
-            newMusic.save()
-            
-            # save the new id-based file name to record
-            newMusic.file_name = str(newMusic.id) + ext
-            newMusic.save()
-
-	        handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+newMusic.file_name)
+	        handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+str(newMusic.id)+ext)
 		messages.add_message(request, messages.INFO, "Music Upload Successful")
 	        return redirect('/musician/artist/'+artist_id)
 	    except Exception:
