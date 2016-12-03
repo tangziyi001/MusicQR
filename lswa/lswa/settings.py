@@ -94,7 +94,8 @@ DATABASES = {
      'OPTIONS': {
          'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
     },
-   }
+  }
+    
 }
 
 
