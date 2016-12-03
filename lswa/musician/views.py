@@ -1,9 +1,10 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login
+from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
+from django.contrib import messages
 # Create your views here.
 
 def index(request):
@@ -16,8 +17,12 @@ def artist_login(request):
         username = request.POST['username']
         password = request.POST['password']
         login_user = authenticate(username=username, password=password)
-        login(request, login_user)
-        return redirect('/musician/artist/'+username+'/')
+        if login_user is not None:
+            login(request, login_user)
+            return redirect('/musician/artist/'+username+'/')
+        else:
+	    messages.add_message(request, messages.ERROR, "Login Invalid, Please Try Again")
+            return redirect('/musician/login')
 def register(request):
     if request.method == 'GET':
         return render(request,'musician/register.html')
@@ -31,17 +36,23 @@ def register(request):
         login(request, login_user)
         return redirect('/musician/artist/'+username+'/')
 
-def download(request, music_id):
-	
-    return render(request,'musician/download.html', {'music_id':music_id})
+def artist_logout(request):
+    logout(request)
+    return redirect('/musician')
 
-@login_required
+def download(request):
+    return render(request,'musician/download.html')
+
 def artist(request, artist_id):
-    if request.user.is_authenticated:
-        return HttpResponse("Hello %s" % artist_id)
+    if request.user.is_authenticated and request.user.username == artist_id:
+        # Retrieve necessary data to display for an artist
+        context = {}
+        context['artist'] = artist_id
+        return render(request, 'musician/artist.html',context)
     else:
-        return redirect('login')
+        return redirect('/musician/login')
 
-@login_required
-def statistics(request, artist_id):
-    return render(request,'musician/statistics.html')
+def statistics(request, artist_id, music_id):
+    if request.user.is_authenticated and request.user.username == artist_id:
+        context['artist'] = artist_id
+    	return render(request,'musician/statistics.html')

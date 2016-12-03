@@ -1,10 +1,13 @@
+{% extends 'musician/base.html' %}
+{% block content %}
 <h1> Register </h1>
 {% if error_message %}<p><strong>{{error_message}}</strong></p>{% endif %}
 
 <form action="" method='POST'>
     {% csrf_token %}
-    <input name='username' type='text'>
-    <input name='password' type='password'>
-    <input name='email' type='text'>
+    <p><span>Username: <input name='username' type='text'></span></p>
+    <p><span>Password: <input name='password' type='password'></span></p>
+    <p><span>Email: <input name='email' type='text'></span></p>
     <input type='submit'>
 </form>
+{% endblock %}

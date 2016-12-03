@@ -56,7 +56,7 @@ ROOT_URLCONF = 'lswa.urls'
 TEMPLATES = [
     {
         'BACKEND': 'django.template.backends.django.DjangoTemplates',
-        'DIRS': [],
+        'DIRS': [os.path.join(BASE_DIR, 'templates')],
         'APP_DIRS': True,
         'OPTIONS': {
             'context_processors': [
@@ -76,12 +76,25 @@ WSGI_APPLICATION = 'lswa.wsgi.application'
 # https://docs.djangoproject.com/en/1.9/ref/settings/#databases
 
 DATABASES = {
-  'default': {
-    'ENGINE': 'django.db.backends.mysql',
-    'OPTIONS': {
-        'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
-    },
-  }
+
+
+'default': {
+  'ENGINE': 'django.db.backends.mysql',
+    'NAME': 'musician',
+    'USER': 'appserver',
+    'PASSWORD': 'foobarzoot',
+    'HOST': 'tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com',
+    'PORT': '3306'
+  
+}
+    
+
+# 'default': {
+#    'ENGINE': 'django.db.backends.mysql',
+#     'OPTIONS': {
+#         'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
+#    },
+#   }
 }
 
 
