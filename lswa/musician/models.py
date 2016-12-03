@@ -16,7 +16,7 @@ class Music(models.Model):
     )
     title = models.CharField(max_length=40)
     genre = models.CharField(max_length=40)
-    date = models.DateField()
+    date = models.DateField(auto_now_add=True)
     rate = models.IntegerField()
     download_url = models.CharField(max_length=1000)
     def __str__(self):

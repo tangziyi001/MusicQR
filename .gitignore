@@ -1,5 +1,6 @@
 *.pyc
 *.swp
 settings.py
+lswa/musician/music/
 migrations/
 env/

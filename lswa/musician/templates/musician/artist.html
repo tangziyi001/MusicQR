@@ -4,8 +4,12 @@
 
 <h2>Upload a Music</h2>
 
-<form action="" method="POST">
-  <input type="file" name="music" accept="audio/*">
-  <input type="submit">
+<form action="" method="POST" enctype="multipart/form-data">
+    {% csrf_token %}
+Title:  <input type="text" name="title">
+Genre: <input type"text" name="genre">  
+
+<input type="file" name="music" accept="audio/*">
+<input type="submit">
 </form>
 {% endblock %}
