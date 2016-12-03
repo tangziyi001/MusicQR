@@ -5,6 +5,9 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import os
+from .models import Music
+from handle_file import handle_uploaded_file, find_ext 
 # Create your views here.
 
 def index(request):
@@ -44,11 +47,30 @@ def download(request):
     return render(request,'musician/download.html')
 
 def artist(request, artist_id):
+    # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:
-        # Retrieve necessary data to display for an artist
-        context = {}
-        context['artist'] = artist_id
-        return render(request, 'musician/artist.html',context)
+	# Put whatever we want to display on artist page in context object
+        # e.g. A list of music composed by this artist
+	context = {}
+	context['artist'] = artist_id
+        if request.method == 'GET':
+            return render(request, 'musician/artist.html',context)
+    	else:
+	    try:
+ 	        # Create a new Music record
+	        # The download url should be a music page
+                newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], rate=0, download_url="") 
+	        newMusic.save()
+                # Retrieve the suffix of the file
+	        ext = find_ext(request.FILES['music'].name)
+                # The Music ID is automatically created after save()
+	        dir_path = os.path.dirname(os.path.realpath(__file__))
+	        handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+str(newMusic.id)+ext)
+		messages.add_message(request, messages.INFO, "Music Upload Successful")
+	        return redirect('/musician/artist/'+artist_id)
+	    except Exception:
+                messages.add_message(request, messages.ERROR, "Music Upload Failed")
+		return redirect('/musician/artist/'+artist_id)
     else:
         return redirect('/musician/login')
 

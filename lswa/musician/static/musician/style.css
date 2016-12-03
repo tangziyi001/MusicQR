@@ -1,6 +1,11 @@
 h1 {
     text-align:center
 }
+.messages {
+    text-align:center;
+    color:blue;
+    
+}
 .error {
     color:red
 }	
