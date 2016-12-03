@@ -2,14 +2,14 @@
 {% block content %}
 <h1>Hello {{artist}}</h1>
 
-<h2>Upload a Music</h2>
-
+<h2 class="center">Upload a Music</h2>
+<div class="center">
 <form action="" method="POST" enctype="multipart/form-data">
     {% csrf_token %}
-Title:  <input type="text" name="title">
-Genre: <input type"text" name="genre">  
-
+<p>Title:  <input type="text" name="title"></p>
+<p>Genre: <input type"text" name="genre"></p>
 <input type="file" name="music" accept="audio/*">
 <input type="submit">
 </form>
+</div>
 {% endblock %}
