@@ -15,7 +15,10 @@ def index(request):
 
 def artist_login(request):
     if request.method == 'GET':
-        return render(request,'musician/login.html')
+	if request.user.username != '':
+	    return redirect('/musician/artist/'+request.user.username)
+        else:
+	    return render(request,'musician/login.html')
     else:
         username = request.POST['username']
         password = request.POST['password']
