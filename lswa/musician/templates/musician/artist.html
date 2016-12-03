@@ -1,4 +1,11 @@
 {% extends 'musician/base.html' %}
 {% block content %}
 <h1>Hello {{artist}}</h1>
+
+<h2>Upload a Music</h2>
+
+<form action="" method="POST">
+  <input type="file" name="music" accept="audio/*">
+  <input type="submit">
+</form>
 {% endblock %}
