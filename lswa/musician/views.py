@@ -88,12 +88,11 @@ def artist(request, artist_id):
     if request.user.is_authenticated and request.user.username == artist_id:
         # Put whatever we want to display on artist page in context object
         # e.g. A list of music composed by this artist
-        # context = {}
-        # context['artist'] = artist_id
-        if request.method == 'GET':
-            artistMusic = Music.objects.all()
-            print(artistMusic)
-            context = {"musics" : artistMusic}
+        context = {}
+        context['artist'] = artist_id
+        if request.method == 'GET':  
+            artistMusic = Music.objects.filter(artist=request.user)
+            context["musics"] = artistMusic
             return render(request, 'musician/artist.html',context)
         else:
             try:
