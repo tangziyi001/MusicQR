@@ -7,7 +7,7 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import os, mimetypes
 from wsgiref.util import FileWrapper
-from .models import Music
+from .models import Music, Download
 from handle_file import handle_uploaded_file, find_ext 
 # Create your views here.
 
