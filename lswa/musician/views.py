@@ -95,6 +95,7 @@ def music_query(request):
 
     else:
         # post --> download
+    return    
 
 
 def download(request, file_name):
