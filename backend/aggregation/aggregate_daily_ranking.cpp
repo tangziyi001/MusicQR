@@ -17,7 +17,7 @@
 #define USER "ubuntu"
 #define PASSWORD "largescaleproject"
 #define DB "backend"
-
+#define AGGREGATE "INSERT INTO ranking"
 using namespace std;
 
 int main(int argc, const char **argv)
@@ -26,7 +26,6 @@ int main(int argc, const char **argv)
   const string user(argc >= 3 ? argv[2] : USER);
   const string pass(argc >= 4 ? argv[3] : PASSWORD);
   const string database(argc >= 5 ? argv[4] : DB);
-
   try {
       sql::Driver *driver;
       sql::Connection *con;

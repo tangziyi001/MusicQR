@@ -52,6 +52,10 @@ def download(request, file_name):
     file_path = dir_path + '/music/' + file_name
     file_wrapper = FileWrapper(file(file_path, 'rb'))
     file_mimetype = mimetypes.guess_type(file_path)
+    # Retrieve the Music Object and store the download record
+    targetMusic = Music.objects.get(file_name=file_name);
+    newDownload = Download.objects.create(music=targetMusic, download_loc='')
+    newDownload.save()
     response = HttpResponse(file_wrapper, content_type=file_mimetype)
     response['X-Sendfile'] = file_path
     response['Content-Length'] = os.stat(file_path).st_size
