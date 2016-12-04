@@ -70,7 +70,8 @@ def getQRCode(newMusic):
     # generate token - save to database
     # generate URL with token --> this will be a QR code to be displayed
     stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
-    
+    print str(newMusic.artist)
+    print newMusic.artist
     h = hashlib.sha1()
     h.update(stringToHash)
     
@@ -87,6 +88,14 @@ def getQRCode(newMusic):
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
     url.show()
+
+def music_query(request):
+    if request.method == 'GET':
+        # check token and serve page
+
+    else:
+        # post --> download
+
 
 def download(request, file_name):
     dir_path = os.path.dirname(os.path.realpath(__file__))
