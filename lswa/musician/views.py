@@ -127,7 +127,7 @@ def artist(request, artist_id):
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
 
-                getQRCode(artist_id)
+                getQRCode(newMusic)
 
 
                 #url.svg('uca-url.svg', scale=8)
