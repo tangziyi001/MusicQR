@@ -7,6 +7,9 @@ from django.contrib.auth.decorators import login_required
 from django.contrib import messages
 import os
 from .models import Music, MusicQuery
+import os, mimetypes
+from wsgiref.util import FileWrapper
+from .models import Music, Download
 from handle_file import handle_uploaded_file, find_ext 
 import hashlib
 import pyqrcode
@@ -56,6 +59,7 @@ def artist_logout(request):
     logout(request)
     return redirect('/musician')
 
+
 def download(request):
     return render(request,'musician/download.html')
 
@@ -64,6 +68,21 @@ def getQRCode(request, artist_id):
     print 'did it not get here'
     return redirect('musician/artist.html')
 
+def download(request, file_name):
+    dir_path = os.path.dirname(os.path.realpath(__file__))
+    file_path = dir_path + '/music/' + file_name
+    file_wrapper = FileWrapper(file(file_path, 'rb'))
+    file_mimetype = mimetypes.guess_type(file_path)
+    # Retrieve the Music Object and store the download record
+    targetMusic = Music.objects.get(file_name=file_name);
+    newDownload = Download.objects.create(music=targetMusic, download_loc='')
+    newDownload.save()
+    response = HttpResponse(file_wrapper, content_type=file_mimetype)
+    response['X-Sendfile'] = file_path
+    response['Content-Length'] = os.stat(file_path).st_size
+    response['Content-Disposition'] = 'attachment; filename=' + file_name
+    return response
+    
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:

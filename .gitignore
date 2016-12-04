@@ -4,3 +4,4 @@ lswa/musician/music/*
 !lswa/musician/music/.gitkeep
 migrations/
 env/
+lswa/musician/music/images/*

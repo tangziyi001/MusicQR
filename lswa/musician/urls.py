@@ -4,10 +4,11 @@ from . import views
 app_name = 'musician'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
-    url(r'^download/$', views.download, name='download'),
+    #url(r'^download/$', views.download, name='download'),
     url(r'^login/$', views.artist_login, name='artist_login'),
     url(r'^register/$', views.register, name='register'),
     url(r'^artist/(?P<artist_id>[a-zA-Z0-9]+)/$', views.artist, name='artist'),
     url(r'^statistics/(?P<artist_id>[a-zA-Z0-9]+)/(?P<music_id>[0-9]+)/$', views.artist, name='statistics'),
     url(r'^logout/$', views.artist_logout, name='artist_logout'),
+    url(r'^download/(?P<file_name>[a-zA-Z0-9.]+)/$', views.download, name='download_file'),
 ]
