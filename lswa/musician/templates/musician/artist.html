@@ -14,7 +14,7 @@
 </form>
 {% for song in musics %}
   <p>{{ song.title }}</p>
-  <form action="getQRCode/" method="POST">
+  <form action="/getQRCode/" method="POST">
   <input type="submit" value="GET QR Code">
 </form>
 {% endfor %}
