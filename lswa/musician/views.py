@@ -89,13 +89,13 @@ def getQRCode(newMusic):
     url.png(strToSave, scale=6)  
     url.show()
 
-def music_query(request):
-    if request.method == 'GET':
-        # check token and serve page
+# def music_query(request):
+#     if request.method == 'GET':
+#         # check token and serve page
 
-    else:
-        # post --> download
-    return    
+#     else:
+#         # post --> download
+#     return    
 
 
 def download(request, file_name):
