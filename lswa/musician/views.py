@@ -64,9 +64,29 @@ def download(request):
     return render(request,'musician/download.html')
 
 
-def getQRCode(request, artist_id):
+def getQRCode(newMusic):
     print 'did it not get here'
-    return redirect('musician/artist.html')
+
+    # generate token - save to database
+    # generate URL with token --> this will be a QR code to be displayed
+    stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
+    
+    h = hashlib.sha1()
+    h.update(stringToHash)
+    
+    tokenToAppendinURL = str(h.hexdigest())
+
+    # save to database 
+    newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
+    newQuery.save()
+
+    #QR code to be displayed
+    url = pyqrcode.create('http://54.209.248.145:8000/musician/artist/'+ str(newMusic.artist) + '/' + str(newMusic.title) + '/' + 'token=' + tokenToAppendinURL)
+    # image_as_str = code.png_as_base64_str(scale=5)
+    # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
+    strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
+    url.png(strToSave, scale=6)  
+    url.show()
 
 def download(request, file_name):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -106,26 +126,8 @@ def artist(request, artist_id):
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
 
-                # generate token - save to database
-                # generate URL with token --> this will be a QR code to be displayed
-                stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
-                
-                h = hashlib.sha1()
-                h.update(stringToHash)
-                
-                tokenToAppendinURL = str(h.hexdigest())
+                getQRCode(newMusic)
 
-                # save to database 
-                newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
-                newQuery.save()
-
-                #QR code to be displayed
-                url = pyqrcode.create('http://35.163.220.222:8000/musician/artist/'+ str(newMusic.artist) + '/' + str(newMusic.title) + '/' + 'token=' + tokenToAppendinURL)
-                # image_as_str = code.png_as_base64_str(scale=5)
-                # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
-                strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
-                url.png(strToSave, scale=6)  
-                url.show()
 
                 #url.svg('uca-url.svg', scale=8)
                 #print(url.terminal(quiet_zone=1))
