@@ -2,24 +2,34 @@
 #include <iostream>
 #include <sstream>
 #include <stdexcept>
-/* uncomment for applications that use vectors */
-/*#include <vector>*/
-
+#include <cstring>
+#include <string>
+#include <iomanip>
+#include <ctime>
 #include "mysql_connection.h"
-
 #include <cppconn/driver.h>
 #include <cppconn/exception.h>
 #include <cppconn/resultset.h>
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
+// Defined for test purposes.
 #define HOST "tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com"
 #define USER "ubuntu"
 #define PASSWORD "largescaleproject"
 #define DB "backend"
-#define AGGREGATE "INSERT INTO ranking"
+
 using namespace std;
 
+string curDate(){
+    auto t = std::time(nullptr);
+    auto tm = *std::localtime(&t);
+    std::ostringstream oss;
+    oss << std::put_time(&tm, "%Y-%m-%d");
+    auto str = oss.str();
+    std::cout << str << std::endl;
+    return str;
+}
 int main(int argc, const char **argv)
 {
   string url(argc >= 2 ? argv[1] : HOST);
@@ -37,11 +47,11 @@ int main(int argc, const char **argv)
       /* Connect to the MySQL musician database */
       con->setSchema("musician");
       stmt = con->createStatement();
-      res = stmt->executeQuery("SELECT * FROM musician_music");
+      com = "SELECT music_id, COUNT(*) FROM musician_download GROUP BY music_id HAVING 'Date' = " + curDate() + " ORDER BY COUNT(*) DESC;";
+      res = stmt->executeQuery(AGGREGATE);
       while (res->next()) {
-          cout << "\t... MySQL replies: ";
-	  /* Access column data by alias or column name */
-	  cout << res->getString("title") << endl;
+          cout << res->getInt("MusicID") << endl;
+	  cout << res->getInt("Rank") << endl;
       }
       delete res;
       delete stmt;

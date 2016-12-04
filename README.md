@@ -12,8 +12,8 @@ When the application is run on a new machine, make sure to install mysql and run
 ## Deployment
 * Django Application: ubuntu@35.163.220.222
 * Relational Database: tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com 
-* Batch Job and RPC Server: ubuntu@35.163.99.152
-
+* Background Computation and RPC Server: ubuntu@35.163.99.152
+* Hadoop Service: ec2-35-161-227-165.us-west-2.compute.amazonaws.com 
 ## First Install
 
 ### Install required packages.
