@@ -81,7 +81,7 @@ def getQRCode(newMusic):
     newQuery.save()
 
     #QR code to be displayed
-    url = pyqrcode.create('http://54.209.248.145:8000/musician/artist/'+ str(newMusic.artist) + '/' + str(newMusic.title) + '/' + 'token=' + tokenToAppendinURL)
+    url = pyqrcode.create('http://35.163.220.222:8000/musician/artist/'+ str(newMusic.artist) + '/' + str(newMusic.title) + '/' + 'token=' + tokenToAppendinURL)
     # image_as_str = code.png_as_base64_str(scale=5)
     # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
