@@ -13,27 +13,40 @@
 #include <cppconn/statement.h>
 #include <cppconn/prepared_statement.h>
 
-#define EXAMPLE_HOST "localhost"
-#define EXAMPLE_USER "root"
-#define EXAMPLE_PASS "tzy@202326"
-#define EXAMPLE_DB "world"
+#define HOST "tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com"
+#define USER "ubuntu"
+#define PASSWORD "largescaleproject"
+#define DB "backend"
 
 using namespace std;
 
 int main(int argc, const char **argv)
 {
-  string url(argc >= 2 ? argv[1] : EXAMPLE_HOST);
-  const string user(argc >= 3 ? argv[2] : EXAMPLE_USER);
-  const string pass(argc >= 4 ? argv[3] : EXAMPLE_PASS);
-  const string database(argc >= 5 ? argv[4] : EXAMPLE_DB);
-
-  cout << "Connector/C++ tutorial framework..." << endl;
-  cout << endl;
+  string url(argc >= 2 ? argv[1] : HOST);
+  const string user(argc >= 3 ? argv[2] : USER);
+  const string pass(argc >= 4 ? argv[3] : PASSWORD);
+  const string database(argc >= 5 ? argv[4] : DB);
 
   try {
-
-    /* INSERT TUTORIAL CODE HERE! */
-    
+      sql::Driver *driver;
+      sql::Connection *con;
+      sql::Statement *stmt;
+      sql::ResultSet *res;
+      /* Create a connection */
+      driver = get_driver_instance();
+      con = driver->connect(HOST, USER, PASSWORD);
+      /* Connect to the MySQL musician database */
+      con->setSchema("musician");
+      stmt = con->createStatement();
+      res = stmt->executeQuery("SELECT * FROM musician_music");
+      while (res->next()) {
+          cout << "\t... MySQL replies: ";
+	  /* Access column data by alias or column name */
+	  cout << res->getString("title") << endl;
+      }
+      delete res;
+      delete stmt;
+      delete con;
   } catch (sql::SQLException &e) {
     /*
       MySQL Connector/C++ throws three different exceptions:
