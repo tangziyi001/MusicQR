@@ -5,10 +5,22 @@ from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
 from django.contrib.auth.decorators import login_required
 from django.contrib import messages
+import os
+from .models import Music, MusicQuery
 import os, mimetypes
 from wsgiref.util import FileWrapper
 from .models import Music, Download
 from handle_file import handle_uploaded_file, find_ext 
+import hashlib
+import pyqrcode
+import time
+import logging
+import qrcode
+#import mimetypes
+import png
+
+#mimetypes.add_type("image/svg+xml", ".svg", True)
+#mimetypes.add_type("image/svg+xml", ".svgz", True)
 # Create your views here.
 
 def index(request):
@@ -47,6 +59,15 @@ def artist_logout(request):
     logout(request)
     return redirect('/musician')
 
+
+def download(request):
+    return render(request,'musician/download.html')
+
+
+def getQRCode(request, artist_id):
+    print 'did it not get here'
+    return redirect('musician/artist.html')
+
 def download(request, file_name):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_path = dir_path + '/music/' + file_name
@@ -67,9 +88,12 @@ def artist(request, artist_id):
     if request.user.is_authenticated and request.user.username == artist_id:
         # Put whatever we want to display on artist page in context object
         # e.g. A list of music composed by this artist
-        context = {}
-        context['artist'] = artist_id
+        # context = {}
+        # context['artist'] = artist_id
         if request.method == 'GET':
+            artistMusic = Music.objects.all()
+            print(artistMusic)
+            context = {"musics" : artistMusic}
             return render(request, 'musician/artist.html',context)
         else:
             try:
@@ -82,12 +106,39 @@ def artist(request, artist_id):
                 # The Music ID is automatically created after save()
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
+
+                # generate token - save to database
+                # generate URL with token --> this will be a QR code to be displayed
+                stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
+                
+                h = hashlib.sha1()
+                h.update(stringToHash)
+                
+                tokenToAppendinURL = str(h.hexdigest())
+
+                # save to database 
+                newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
+                newQuery.save()
+
+                #QR code to be displayed
+                url = pyqrcode.create('http://35.163.220.222:8000/musician/artist/'+ str(newMusic.artist) + '/' + str(newMusic.title) + '/' + 'token=' + tokenToAppendinURL)
+                # image_as_str = code.png_as_base64_str(scale=5)
+                # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
+                strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
+                url.png(strToSave, scale=6)  
+                url.show()
+
+                #url.svg('uca-url.svg', scale=8)
+                #print(url.terminal(quiet_zone=1))
+
                 dir_path = os.path.dirname(os.path.realpath(__file__))
                 handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+newMusic.file_name)
                 messages.add_message(request, messages.INFO, "Music Upload Successful")
+
                 return redirect('/musician/artist/'+artist_id)
-            except Exception:
+            except Exception as e:
                 messages.add_message(request, messages.ERROR, "Music Upload Failed")
+                logging.exception("message")
                 return redirect('/musician/artist/'+artist_id)
     else:
         return redirect('/musician/login')
