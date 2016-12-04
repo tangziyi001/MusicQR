@@ -2,6 +2,7 @@
 {% block content %}
 <h1>Hello {{artist}}</h1>
 
+
 <h2 class="center">Upload a Music</h2>
 <div class="center">
 <form action="" method="POST" enctype="multipart/form-data">
@@ -11,5 +12,12 @@
 <input type="file" name="music" accept="audio/*">
 <input type="submit">
 </form>
-</div>
+
+
+{% for song in musics %}
+  <p>{{ song.title }}</p>
+  <form action="getQRCode/" method="POST">
+  <input type="submit" value="GET QR Code">
+</form>
+{% endfor %}
 {% endblock %}
