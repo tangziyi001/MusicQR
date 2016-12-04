@@ -22,12 +22,13 @@
 using namespace std;
 
 string curDate(){
-    auto t = std::time(nullptr);
+    time_t t = std::time(nullptr);
+    // Aggregate yesterday's result
+    // t -= (24*60*60);
     auto tm = *std::localtime(&t);
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d");
     auto str = oss.str();
-    std::cout << str << std::endl;
     return str;
 }
 int main(int argc, const char **argv)
@@ -39,6 +40,7 @@ int main(int argc, const char **argv)
   try {
       sql::Driver *driver;
       sql::Connection *con;
+      /* Retrieve Download Data*/
       sql::Statement *stmt;
       sql::ResultSet *res;
       /* Create a connection */
@@ -47,14 +49,43 @@ int main(int argc, const char **argv)
       /* Connect to the MySQL musician database */
       con->setSchema("musician");
       stmt = con->createStatement();
-      com = "SELECT music_id, COUNT(*) FROM musician_download GROUP BY music_id HAVING 'Date' = " + curDate() + " ORDER BY COUNT(*) DESC;";
-      res = stmt->executeQuery(AGGREGATE);
+      /* Get Data After Grouping */
+      string com = "SELECT music_id, count FROM (SELECT d.id as music_id, IFNULL(m.count,0) AS count FROM (SELECT music_id, COUNT(*) AS count FROM musician_download WHERE CAST(download_time AS DATE) = '"+curDate()+"' GROUP BY music_id) AS m RIGHT OUTER JOIN musician_music AS d ON m.music_id=d.id) AS g ORDER BY g.count DESC"; 
+      res = stmt->executeQuery(com);
+      /* Ranking */
+      vector<vector<int> > all;
+      int tmpVal = -1;
+      int tmpRank = 0;
+      int tmpCul = 0;
       while (res->next()) {
-          cout << res->getInt("MusicID") << endl;
-	  cout << res->getInt("Rank") << endl;
+          vector<int> now;
+	  tmpCul++;
+          int music_id = res->getInt("music_id");
+	  int count = res->getInt("count");
+          int rank = tmpCul;
+          if(count == tmpVal) {
+	      rank = tmpRank;
+          }
+	  tmpRank = rank;
+          tmpVal = count;
+	  now.push_back(music_id);
+	  now.push_back(count);
+          now.push_back(rank);
+	  all.push_back(now);
       }
       delete res;
       delete stmt;
+      /* Store Data In Ranking Table */
+      con->setSchema("backend");
+      sql::PreparedStatement  *prep_stmt  = con->prepareStatement("INSERT INTO ranking (MusicID, Count, Rank, Date) VALUES (?, ?, ?, ?)");
+      for(vector<int>& row : all){
+          prep_stmt->setInt(1, row[0]);
+          prep_stmt->setInt(2, row[1]);
+	  prep_stmt->setInt(3, row[2]);
+          prep_stmt->setString(4, curDate());
+	  prep_stmt->execute();
+      }
+      delete prep_stmt;
       delete con;
   } catch (sql::SQLException &e) {
     /*
