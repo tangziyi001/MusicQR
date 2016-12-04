@@ -47,9 +47,6 @@ def artist_logout(request):
     logout(request)
     return redirect('/musician')
 
-def music_query(request, token):
-
-
 def download(request, file_name):
     dir_path = os.path.dirname(os.path.realpath(__file__))
     file_path = dir_path + '/music/' + file_name
@@ -60,6 +57,7 @@ def download(request, file_name):
     response['Content-Length'] = os.stat(file_path).st_size
     response['Content-Disposition'] = 'attachment; filename=' + file_name
     return response
+    
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:
