@@ -101,7 +101,7 @@ def getQRCode(request, music_id):
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
     #url.show()
-    strToShow = '/musician/static/images/' + tokenToAppendinURL + '.png'
+    strToShow = '/static/images/' + tokenToAppendinURL + '.png'
     x = json.dumps({'qrpath': strToShow})
     print x
     return JsonResponse(x, safe=False)
