@@ -11,7 +11,8 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 
 		var req = new XMLHttpRequest(); 
 
-		var url = "http://35.163.220.222:8000/musician/getQRCode/" + getQR.value + '/'; 
+		var url = "http://35.163.220.222:8000/musician/getQRCode/" + getQR.id + '/'; 
+		//var url = "http://localhost:8000/musician/getQRCode/" + getQR.id + '/'; 
 
 		req.open('GET', url, true);
 
@@ -28,12 +29,17 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 
 			  console.log(str);
 
+		     
+		      var strVal = 'divId' + String(getQR.id)
+		      console.log(strVal);
+		      var divId = document.getElementById(strVal);
+		      console.log(divId);
+
 		      var qrImg = document.createElement("Img");
 		      qrImg.setAttribute('src', str);
 		      console.log(qrImg['src']);
 
-		      document.body.appendChild(qrImg);
-		      
+		      divId.appendChild(qrImg);
 		     
 		    }
 		    else{
@@ -49,7 +55,7 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 		console.log("befor set header");
 		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
 		//req.setRequestHeader('X-CSRFToken', csrftoken);
-		req.send('music_id=' + getQR.value);
+		req.send('music_id=' + getQR.id);
 	})
 })
 })
