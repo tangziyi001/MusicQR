@@ -186,8 +186,8 @@ def statistics(request, artist_id, music_id):
         context['artist'] = artist_id
         today = time.strftime("%Y-%m-%d")
         return render(request,'musician/statistics.html')
-    else 
-		messages.add_message(request, messages.ERROR, "No Access to This Page")
+    else:
+        messages.add_message(request, messages.ERROR, "No Access to This Page")
         logging.exception("message")
         return redirect('/musician/')
         

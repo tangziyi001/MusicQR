@@ -4,6 +4,7 @@
    {% load static %}
    <link rel="stylesheet" type="text/css" href="{% static 'musician/style.css' %}" />
    <title>{% block title %}Musician Center{% endblock %}</title>
+   {%block optional_head%}{% endblock %}
 </head>
 <body>
     <div id='nav' class="center">
