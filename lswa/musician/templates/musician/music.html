@@ -1,0 +1,18 @@
+{% extends 'musician/base.html' %}
+{% block content %}
+<h1>Welcome</h1>
+
+{% if showForm %}
+<h2 class="center">{{music.title}}</h2>
+<p class="center">By: {{music.artist}}<br>
+	Uploaded on: {{music.date}}<br>
+	Genre: {{music.genre}}<br>
+</p>
+<div class="center">
+<a class='button' href='{{url}}'>Download</a>
+</div>
+{% else %}
+<p class="center">You QR Code has expired</p>
+{% endif %}
+
+{% endblock %}
