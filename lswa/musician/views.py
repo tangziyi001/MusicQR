@@ -16,8 +16,12 @@ import pyqrcode
 import time
 import logging
 import qrcode
-#import mimetypes
 import png
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+
 
 #mimetypes.add_type("image/svg+xml", ".svg", True)
 #mimetypes.add_type("image/svg+xml", ".svgz", True)
@@ -63,12 +67,18 @@ def artist_logout(request):
 def download(request):
     return render(request,'musician/download.html')
 
-
-def getQRCode(newMusic):
-    print 'did it not get here'
+@csrf_exempt
+def getQRCode(request, music_id):
+    #print request.POST['music_id']
+    newMusic = Music.objects.get(id=music_id)
+    print newMusic.title
+    print newMusic.genre
 
     # generate token - save to database
     # generate URL with token --> this will be a QR code to be displayed
+
+    #stringToHash = str(time.time()) + str(request.user) + str(newMusic.title)
+    
     stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
 
     h = hashlib.sha1()
@@ -81,7 +91,7 @@ def getQRCode(newMusic):
     newQuery.save()
 
     #QR code to be displayed
-    url = pyqrcode.create('http://54.209.248.145:8000/musician/music/' + tokenToAppendinURL)
+    url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
 
     # for testing purpose - print url in console
     print url
@@ -90,7 +100,12 @@ def getQRCode(newMusic):
     # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
-    url.show()
+    #url.show()
+    strToShow = '/musician/static/images/' + tokenToAppendinURL + '.png'
+    x = json.dumps({'qrpath': strToShow})
+    print x
+    return JsonResponse(x, safe=False)
+
 
 def music_query(request, token):
     context = {}
@@ -163,7 +178,7 @@ def artist(request, artist_id):
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
 
-                getQRCode(newMusic)
+                #getQRCode(newMusic)
 
 
                 #url.svg('uca-url.svg', scale=8)
