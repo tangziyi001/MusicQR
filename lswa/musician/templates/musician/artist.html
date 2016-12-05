@@ -18,7 +18,6 @@
   <!--<form action="">-->
   	 {% csrf_token %}
   <a href="/musician/statistics/{{artist}}/{{song.id}}" class="button">Rank Info</a>
-  <input type="submit" id="{{ song.id }}" value="{{ song.id }}" class="QRparent"></input>
   <input type="submit" id="{{ song.id }}" value="GET QR Code" name="GET QR Code" class="QRparent"></input>
   <div id="divId{{ song.id }}">
   </div>
