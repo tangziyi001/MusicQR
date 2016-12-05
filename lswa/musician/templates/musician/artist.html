@@ -15,9 +15,13 @@
 <div id="getQRParent">
 {% for song in musics %}
   <p>{{ song.title }}</p>
-  <!--<form action="" method="POST">-->
+  <!--<form action="">-->
   	 {% csrf_token %}
   <input type="submit" id="{{ song.id }}" value="{{ song.id }}" class="QRparent"></input>
+  <a href="/musician/statistics/{{artist}}/{{song.id}}" class="button">Rank Info</a>
+  <input type="submit" id="{{ song.id }}" value="GET QR Code" name="GET QR Code" class="QRparent"></input>
+  <div id="divId{{ song.id }}">
+  </div>
 <!--</form>-->
 {% endfor %}
 </div>

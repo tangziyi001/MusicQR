@@ -92,6 +92,7 @@ def getQRCode(request, music_id):
 
     #QR code to be displayed
     url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
+    #url = pyqrcode.create('http://localhost:8000/musician/music/' + tokenToAppendinURL)
 
     # for testing purpose - print url in console
     print url
@@ -118,6 +119,7 @@ def music_query(request, token):
             targetMusic = targetQuery.query
             context['music'] = targetMusic
             context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
+            #context['url'] = 'http://localhost:8000/musician/download/' + token
             context['showForm'] = True
             print '** reached showForm = True'
         except Exception as e:
@@ -198,5 +200,16 @@ def artist(request, artist_id):
 
 def statistics(request, artist_id, music_id):
     if request.user.is_authenticated and request.user.username == artist_id:
+        context = {}
         context['artist'] = artist_id
-        return render(request,'musician/statistics.html')
+        context['music_name'] = Music.objects.get(id=music_id).title
+        today = time.strftime("%Y-%m-%d")
+        return render(request,'musician/statistics.html', context)
+    else:
+        messages.add_message(request, messages.ERROR, "No Access to This Page")
+        logging.exception("message")
+        return redirect('/musician/')
+        
+        
+        
+		
