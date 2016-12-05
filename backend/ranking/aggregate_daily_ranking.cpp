@@ -24,7 +24,7 @@ using namespace std;
 string curDate(){
     time_t t = std::time(nullptr);
     // Aggregate yesterday's result
-    // t -= (24*60*60);
+     t -= (24*60*60);
     auto tm = *std::localtime(&t);
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d");
@@ -77,7 +77,7 @@ int main(int argc, const char **argv)
       delete stmt;
       /* Store Data In Ranking Table */
       con->setSchema("backend");
-      sql::PreparedStatement  *prep_stmt  = con->prepareStatement("INSERT INTO ranking (MusicID, Count, Rank, Date) VALUES (?, ?, ?, ?)");
+      sql::PreparedStatement  *prep_stmt  = con->prepareStatement("INSERT IGNORE INTO ranking (MusicID, Count, Rank, Date) VALUES (?, ?, ?, ?)");
       for(vector<int>& row : all){
           prep_stmt->setInt(1, row[0]);
           prep_stmt->setInt(2, row[1]);
