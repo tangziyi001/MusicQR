@@ -1,8 +1,8 @@
 {% extends 'musician/base.html' %}
 {% block content %}
+<script language="javascript" type="text/javascript" src="/static/javascripts/getQR.js"></script>
+
 <h1>Hello {{artist}}</h1>
-
-
 <h2 class="center">Upload a Music</h2>
 <div class="center">
 <form action="" method="POST" enctype="multipart/form-data">
@@ -12,10 +12,14 @@
 <input type="file" name="music" accept="audio/*">
 <input type="submit">
 </form>
+<div id="getQRParent">
 {% for song in musics %}
   <p>{{ song.title }}</p>
-  <form action="/getQRCode/" method="POST">
-  <input type="submit" value="GET QR Code">
-</form>
+  <!--<form action="" method="POST">-->
+  	 {% csrf_token %}
+  <input type="submit" id="{{ song.id }}" value="{{ song.id }}" class="QRparent"></input>
+<!--</form>-->
 {% endfor %}
+</div>
+
 {% endblock %}
