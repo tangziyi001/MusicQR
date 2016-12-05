@@ -111,7 +111,7 @@ def music_query(request, token):
         return render(request, 'musician/music.html',context)
     else:
         print '** method is not GET??'
-        return redirect('/')
+        return redirect('/musician')
 
 def download(request, token):
     context = {}
@@ -132,13 +132,14 @@ def download(request, token):
             response['X-Sendfile'] = file_path
             response['Content-Length'] = os.stat(file_path).st_size
             response['Content-Disposition'] = 'attachment; filename=' + file_name
+            targetQuery.delete()
             return response
         except Exception as e:
             messages.add_message(request, messages.ERROR, "Music Download Failed")
             logging.exception("message")
-            return redirect('/')
+            return redirect('/musician')
     else:
-        return redirect('/')
+        return redirect('/musician')
 
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
