@@ -12,5 +12,6 @@ message MusicRequest {
 
 message RankInfo {
   string date = 1;
-  int64 rankNumber = 2; 
+  int64 count = 2;
+  int64 rankNumber = 3;
 }

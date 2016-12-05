@@ -19,7 +19,7 @@ DESCRIPTOR = _descriptor.FileDescriptor(
   name='backend.proto',
   package='',
   syntax='proto3',
-  serialized_pb=_b('\n\rbackend.proto\".\n\x0cMusicRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x10\n\x08music_id\x18\x02 \x01(\x03\",\n\x08RankInfo\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x12\n\nrankNumber\x18\x02 \x01(\x03\x32=\n\x07\x42\x61\x63kend\x12\x32\n\x14GetDownloadRankDaily\x12\r.MusicRequest\x1a\t.RankInfo\"\x00\x62\x06proto3')
+  serialized_pb=_b('\n\rbackend.proto\".\n\x0cMusicRequest\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\x10\n\x08music_id\x18\x02 \x01(\x03\";\n\x08RankInfo\x12\x0c\n\x04\x64\x61te\x18\x01 \x01(\t\x12\r\n\x05\x63ount\x18\x02 \x01(\x03\x12\x12\n\nrankNumber\x18\x03 \x01(\x03\x32=\n\x07\x42\x61\x63kend\x12\x32\n\x14GetDownloadRankDaily\x12\r.MusicRequest\x1a\t.RankInfo\"\x00\x62\x06proto3')
 )
 _sym_db.RegisterFileDescriptor(DESCRIPTOR)
 
@@ -79,8 +79,15 @@ _RANKINFO = _descriptor.Descriptor(
       is_extension=False, extension_scope=None,
       options=None),
     _descriptor.FieldDescriptor(
-      name='rankNumber', full_name='RankInfo.rankNumber', index=1,
+      name='count', full_name='RankInfo.count', index=1,
       number=2, type=3, cpp_type=2, label=1,
+      has_default_value=False, default_value=0,
+      message_type=None, enum_type=None, containing_type=None,
+      is_extension=False, extension_scope=None,
+      options=None),
+    _descriptor.FieldDescriptor(
+      name='rankNumber', full_name='RankInfo.rankNumber', index=2,
+      number=3, type=3, cpp_type=2, label=1,
       has_default_value=False, default_value=0,
       message_type=None, enum_type=None, containing_type=None,
       is_extension=False, extension_scope=None,
@@ -98,7 +105,7 @@ _RANKINFO = _descriptor.Descriptor(
   oneofs=[
   ],
   serialized_start=65,
-  serialized_end=109,
+  serialized_end=124,
 )
 
 DESCRIPTOR.message_types_by_name['MusicRequest'] = _MUSICREQUEST
