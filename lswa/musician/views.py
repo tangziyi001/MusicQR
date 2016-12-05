@@ -147,4 +147,13 @@ def artist(request, artist_id):
 def statistics(request, artist_id, music_id):
     if request.user.is_authenticated and request.user.username == artist_id:
         context['artist'] = artist_id
+        today = time.strftime("%Y-%m-%d")
         return render(request,'musician/statistics.html')
+    else 
+		messages.add_message(request, messages.ERROR, "No Access to This Page")
+        logging.exception("message")
+        return redirect('/musician/')
+        
+        
+        
+		
