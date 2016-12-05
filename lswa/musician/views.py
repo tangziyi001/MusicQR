@@ -117,7 +117,7 @@ def music_query(request, token):
             targetQuery = MusicQuery.objects.get(token=token)
             targetMusic = targetQuery.query
             context['music'] = targetMusic
-            context['url'] = 'http://54.209.248.145:8000/musician/download/' + token
+            context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
             context['showForm'] = True
             print '** reached showForm = True'
         except Exception as e:
