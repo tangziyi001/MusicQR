@@ -79,10 +79,10 @@ def getQRCode(newMusic):
     # save to database 
     newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
     newQuery.save()
-    
+
     #QR code to be displayed
     url = pyqrcode.create('http://35.163.220.222:8000/musician/artist/' + tokenToAppendinURL)
-    
+
     # for testing purpose - print url in console
     print url
 
@@ -93,8 +93,10 @@ def getQRCode(newMusic):
     url.show()
 
 def music_query(request, token):
-    context = {}    
+    context = {}
+    print '* reached music_query'
     if request.method == 'GET':
+        print '** reached method is GET'
         # check token and serve page
         try:
             targetQuery = MusicQuery.objects.get(token=token)
@@ -102,10 +104,13 @@ def music_query(request, token):
             context['music'] = targetMusic
             context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
             context['showForm'] = True
+            print '** reached showForm = True'
         except Exception as e:
             context['showForm'] = False
+            print '** reached showForm = False'
         return render(request, 'musician/music.html',context)
     else:
+        print '** method is not GET??'
         return redirect('/')
 
 def download(request, token):
