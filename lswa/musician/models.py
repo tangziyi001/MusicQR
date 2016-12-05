@@ -16,11 +16,20 @@ class Music(models.Model):
     )
     title = models.CharField(max_length=40)
     genre = models.CharField(max_length=40)
-    date = models.DateField()
+    file_name = models.CharField(max_length=40)
+    date = models.DateField(auto_now_add=True)
     rate = models.IntegerField()
     download_url = models.CharField(max_length=1000)
     def __str__(self):
         return self.title
+
+class MusicQuery(models.Model):
+    query = models.ForeignKey(
+        Music,
+        on_delete = models.CASCADE,
+        verbose_name = 'arbitrary name'
+    )
+    token = models.CharField(max_length=1000)
 
 class Download(models.Model):
     music = models.ForeignKey(

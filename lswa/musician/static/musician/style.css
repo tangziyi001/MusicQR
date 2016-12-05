@@ -1,6 +1,30 @@
 h1 {
     text-align:center
 }
+a.button {
+    -webkit-appearance: button;
+    -moz-appearance: button;
+    appearance: button;
+    text-decoration: none;
+    color: initial;
+    width:200px;
+    height:50px;
+}
+button {
+    width:200px;
+    height:50px;
+}
+.center {
+    position:relative;
+    margin: 0 auto;
+    text-align:center;
+    width: 50%;
+}
+.messages {
+    text-align:center;
+    color:blue;
+    
+}
 .error {
     color:red
 }	

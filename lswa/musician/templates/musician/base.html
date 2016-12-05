@@ -6,7 +6,7 @@
    <title>{% block title %}Musician Center{% endblock %}</title>
 </head>
 <body>
-    <div id='nav'>
+    <div id='nav' class="center">
         {% block nav %}
          <nav>
 	<a href="/musician/">Index</a> |
@@ -20,6 +20,11 @@
         {% endblock %}
     </div>
     <div id='content'>
+    {% if messages %}
+        {% for message in messages %}
+            <p class="messages"><strong>{{message}}</strong></p>
+        {% endfor%}
+    {% endif %}
         {% block content %}
         {% endblock %}
     </div>

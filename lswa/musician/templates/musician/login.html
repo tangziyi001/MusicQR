@@ -1,13 +1,6 @@
 {% extends 'musician/base.html' %}
 {% block content %}
 <h1> Login </h1>
-{% if messages %}
-    {% for message in messages %}
-    <p><strong>{{message}}</strong></p>
-    {% endfor%}
-{% endif %}
-    
-
 <form action="" method='POST'>
     {% csrf_token %}
     <p><span>Username: <input name='username' type='text'></span></p>

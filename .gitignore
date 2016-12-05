@@ -1,4 +1,7 @@
 *.pyc
 *.swp
+lswa/musician/music/*
+!lswa/musician/music/.gitkeep
 migrations/
 env/
+lswa/musician/static/images/*

@@ -85,7 +85,6 @@ DATABASES = {
     'PASSWORD': 'foobarzoot',
     'HOST': 'tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com',
     'PORT': '3306'
-  
 }
     
 
@@ -94,7 +93,8 @@ DATABASES = {
 #     'OPTIONS': {
 #         'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
 #    },
-#   }
+#  }
+    
 }
 
 
