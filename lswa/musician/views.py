@@ -135,7 +135,7 @@ def download(request, token):
             targetQuery.delete()
             return response
         except Exception as e:
-            messages.add_message(request, messages.ERROR, "Music Download Failed")
+            messages.add_message(request, messages.ERROR, "Music Download Failed: QR Code Expired")
             logging.exception("message")
             return redirect('/musician')
     else:
