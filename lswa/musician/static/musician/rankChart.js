@@ -15,7 +15,7 @@ function drawChart(){
 		[6,3],
 		[7,9]
 	]);
-	var option = {
+	var options = {
 		chart: {title:'Number of Downloads Daily Rank'},
 		width: 900,
 		height: 500,

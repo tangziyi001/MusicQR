@@ -18,6 +18,7 @@
   <!--<form action="" method="POST">-->
   	 {% csrf_token %}
   <input type="submit" id="{{ song.id }}" value="{{ song.id }}" class="QRparent"></input>
+  <a href="/musician/statistics/{{artist}}/{{song.id}}" class="button">Rank Info</a>
 <!--</form>-->
 {% endfor %}
 </div>

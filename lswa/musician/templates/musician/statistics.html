@@ -1,12 +1,5 @@
 {% extends 'musician/base.html' %}
-<h1> Statistics for {{music_name}}</h1>
-{% block optional_head %}
-<script type="text/javascript" src="https://www.gstatic.com/charts/loader.js"></script>
-<script type="text/javascript" src="rankChart.js">
-</script>
-{% endblock %}
 {% block content %}
-<body>
+<h1> Statistics for {{music_name}}</h1>
 	<div id="line_top_x"></div>
-</body>
 {% endblock %}
