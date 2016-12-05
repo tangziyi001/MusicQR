@@ -16,8 +16,12 @@ import pyqrcode
 import time
 import logging
 import qrcode
-#import mimetypes
 import png
+import json
+from django.views.decorators.csrf import csrf_exempt
+from django.http import JsonResponse
+
+
 
 #mimetypes.add_type("image/svg+xml", ".svg", True)
 #mimetypes.add_type("image/svg+xml", ".svgz", True)
@@ -63,14 +67,18 @@ def artist_logout(request):
 def download(request):
     return render(request,'musician/download.html')
 
-
-def getQRCode(newMusic):
-    print 'did it not get here'
+@csrf_exempt
+def getQRCode(request, music_id):
+    #print request.POST['music_id']
+    newMusic = Music.objects.get(id=music_id)
+    print newMusic.title
+    print newMusic.genre
 
     # generate token - save to database
     # generate URL with token --> this will be a QR code to be displayed
-    stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
+    stringToHash = str(time.time()) + str(request.user) + str(newMusic.title)
     
+    print 'got here'
     h = hashlib.sha1()
     h.update(stringToHash)
     
@@ -86,7 +94,12 @@ def getQRCode(newMusic):
     # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
-    url.show()
+    #url.show()
+    strToShow = '/musician/static/images/' + tokenToAppendinURL + '.png'
+    x = json.dumps({'qrpath': strToShow})
+    print x
+    return JsonResponse(x, safe=False)
+
 
 def download(request, file_name):
     dir_path = os.path.dirname(os.path.realpath(__file__))
@@ -126,7 +139,7 @@ def artist(request, artist_id):
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
 
-                getQRCode(newMusic)
+                #getQRCode(newMusic)
 
 
                 #url.svg('uca-url.svg', scale=8)
