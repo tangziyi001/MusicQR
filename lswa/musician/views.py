@@ -81,7 +81,7 @@ def getQRCode(newMusic):
     newQuery.save()
 
     #QR code to be displayed
-    url = pyqrcode.create('http://35.163.220.222:8000/musician/artist/' + tokenToAppendinURL)
+    url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
 
     # for testing purpose - print url in console
     print url
