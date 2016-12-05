@@ -12,34 +12,36 @@ When the application is run on a new machine, make sure to install mysql and run
 ## Deployment
 * Django Application: ubuntu@35.163.220.222
 * Relational Database: tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com 
-* Batch Job and RPC Server: ubuntu@35.163.99.152
-
+* Background Computation and RPC Server: ubuntu@35.163.99.152
+* Hadoop Service: ec2-35-161-227-165.us-west-2.compute.amazonaws.com 
 ## First Install
 
 ### Install required packages.
-$ sudo apt-get update; sudo apt-get install mysql-server libmysqlclient-dev python-dev python-virtualenv
+* $ sudo apt-get update; sudo apt-get install mysql-server libmysqlclient-dev python-dev python-virtualenv 
 (Set a mysql root password)
 
-$ ./first_install.sh
+* $ ./first_install.sh
 
 ### Install the proper databases
-$ cd db
-$ ./install_db.sh
-(Will ask for the mysql root password configured above).
-$ cd ..
+* $ cd db
+* $ ./install_db.sh (Will ask for the mysql root password configured above).
+* $ cd ..
 
 ### Sync the database
-$ source ./env/bin/activate
-$ cd web/scalica
-$ python manage.py makemigrations micro
-$ python manage.py migrate
+* $ source ./env/bin/activate
+* $ cd web/scalica
+* $ python manage.py makemigrations micro
+* $ python manage.py migrate
 
-
+### Setup Backend
+* Go to backend/
+* $ ./ini.sh
+ 
 ### After the first installation, from the project's directory
 Run the server:
-$ source ./env/bin/activate
-$ cd web/scalica
-$ python manage.py runserver
+* $ source ./env/bin/activate
+* $ cd web/scalica
+* $ python manage.py runserver
 
 Access the site at http://localhost:8000/micro
 
