@@ -5,7 +5,6 @@ app_name = 'musician'
 urlpatterns = [
     url(r'^$', views.index, name='index'),
     #url(r'^download/$', views.download, name='download'),
->>>>>>> 5d7874d220d7de93588a5f50bd932352a2017780
     url(r'^login/$', views.artist_login, name='artist_login'),
     url(r'^register/$', views.register, name='register'),
     url(r'^artist/(?P<artist_id>[a-zA-Z0-9]+)/$', views.artist, name='artist'),
