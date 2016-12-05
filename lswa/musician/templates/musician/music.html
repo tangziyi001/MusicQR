@@ -2,11 +2,11 @@
 {% block content %}
 <h1>Welcome</h1>
 
-{% if show_form %}
-<h2 class="center">{{targetMusic.title}}</h2>
-<p class="center">By: {{targetMusic.artist}}<br>
-	Uploaded on: {{targetMusic.date}}<br>
-	Genre: {{targetMusic.genre}}<br>
+{% if showForm %}
+<h2 class="center">{{music.title}}</h2>
+<p class="center">By: {{music.artist}}<br>
+	Uploaded on: {{music.date}}<br>
+	Genre: {{music.genre}}<br>
 </p>
 <div class="center">
 <a class='button' href='{{url}}'>Download</a>
