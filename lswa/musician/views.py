@@ -92,6 +92,7 @@ def getQRCode(request, music_id):
 
     #QR code to be displayed
     url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
+    #url = pyqrcode.create('http://localhost:8000/musician/music/' + tokenToAppendinURL)
 
     # for testing purpose - print url in console
     print url
@@ -101,7 +102,7 @@ def getQRCode(request, music_id):
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
     #url.show()
-    strToShow = '/musician/static/images/' + tokenToAppendinURL + '.png'
+    strToShow = '/static/images/' + tokenToAppendinURL + '.png'
     x = json.dumps({'qrpath': strToShow})
     print x
     return JsonResponse(x, safe=False)
@@ -117,7 +118,8 @@ def music_query(request, token):
             targetQuery = MusicQuery.objects.get(token=token)
             targetMusic = targetQuery.query
             context['music'] = targetMusic
-            context['url'] = 'http://54.209.248.145:8000/musician/download/' + token
+            context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
+            #context['url'] = 'http://localhost:8000/musician/download/' + token
             context['showForm'] = True
             print '** reached showForm = True'
         except Exception as e:
