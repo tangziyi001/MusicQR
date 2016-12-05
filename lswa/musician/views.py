@@ -92,29 +92,45 @@ def music_query(request, token):
     context = {}    
     if request.method == 'GET':
         # check token and serve page
-        targetQuery = MusicQuery.objects.get(token=token)
-        targetMusic = targetQuery.query
-        context['music'] = targetMusic.id
+        try:
+            targetQuery = MusicQuery.objects.get(token=token)
+            targetMusic = targetQuery.query
+            context['music'] = targetMusic
+            context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
+            context['showForm'] = True
+        except Exception as e:
+            context['showForm'] = False
         return render(request, 'musician/music.html',context)
-
     else:
-        # post --> download
-    return
-def download(request, file_name):
-    dir_path = os.path.dirname(os.path.realpath(__file__))
-    file_path = dir_path + '/music/' + file_name
-    file_wrapper = FileWrapper(file(file_path, 'rb'))
-    file_mimetype = mimetypes.guess_type(file_path)
-    # Retrieve the Music Object and store the download record
-    targetMusic = Music.objects.get(file_name=file_name);
-    newDownload = Download.objects.create(music=targetMusic, download_loc='')
-    newDownload.save()
-    response = HttpResponse(file_wrapper, content_type=file_mimetype)
-    response['X-Sendfile'] = file_path
-    response['Content-Length'] = os.stat(file_path).st_size
-    response['Content-Disposition'] = 'attachment; filename=' + file_name
-    return response
-    
+        return redirect('/')
+
+def download(request, token):
+    context = {}
+    if request.method == 'GET':
+        # check token and get file path
+        try:
+            targetQuery = MusicQuery.objects.get(token=token)
+            targetMusic = targetQuery.query
+            file_name = targetMusic.file_name
+            dir_path = os.path.dirname(os.path.realpath(__file__))
+            file_path = dir_path + '/music/' + file_name
+            file_wrapper = FileWrapper(file(file_path, 'rb'))
+            file_mimetype = mimetypes.guess_type(file_path)
+            # Store the download record
+            newDownload = Download.objects.create(music=targetMusic, download_loc='')
+            newDownload.save()
+            response = HttpResponse(file_wrapper, content_type=file_mimetype)
+            response['X-Sendfile'] = file_path
+            response['Content-Length'] = os.stat(file_path).st_size
+            response['Content-Disposition'] = 'attachment; filename=' + file_name
+            return response
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, "Music Download Failed")
+            logging.exception("message")
+            return redirect('/')
+    else:
+        return redirect('/')
+
 def artist(request, artist_id):
     # The artist_id is identical with the auto-generated id created by User model
     if request.user.is_authenticated and request.user.username == artist_id:
@@ -129,7 +145,6 @@ def artist(request, artist_id):
         else:
             try:
                 # Create a new Music record
-                # The download url should be a music page
                 newMusic = Music(artist=request.user, title=request.POST['title'], genre=request.POST['genre'], file_name="", rate=0, download_url="") 
                 newMusic.save()
                 # Retrieve the suffix of the file
