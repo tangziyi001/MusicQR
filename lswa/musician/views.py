@@ -1,6 +1,7 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
 from django.shortcuts import redirect
+from django.confi import settings
 from django.contrib import messages
 from django.contrib.auth import authenticate, login, logout
 from django.contrib.auth.models import User
@@ -89,9 +90,9 @@ def getQRCode(request, music_id):
 
     #QR code to be displayed
     # url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
-    url = pyqrcode.create('http://54.209.248.145:8000/musician/music/' + tokenToAppendinURL)
+    # url = pyqrcode.create('http://54.209.248.145:8000/musician/music/' + tokenToAppendinURL)
     # url = pyqrcode.create('http://localhost:8000/musician/music/' + tokenToAppendinURL)
-    # url = pyqrcode.create(ROOT_URL + '/musician/music/' + tokenToAppendinURL)
+    url = pyqrcode.create(ROOT_URL + '/musician/music/' + tokenToAppendinURL)
 
     # image_as_str = code.png_as_base64_str(scale=5)
     # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
@@ -111,9 +112,9 @@ def music_query(request, token):
             targetMusic = targetQuery.query
             context['music'] = targetMusic
             # context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
-            context['url'] = 'http://54.209.248.145:8000/musician/download/' + token
+            # context['url'] = 'http://54.209.248.145:8000/musician/download/' + token
             # context['url'] = 'http://localhost:8000/musician/download/' + token
-            # context['url'] = ROOT_URL + '/musician/download/' + token
+            context['url'] = ROOT_URL + '/musician/download/' + token
             context['showForm'] = True
         except Exception as e:
             context['showForm'] = False
