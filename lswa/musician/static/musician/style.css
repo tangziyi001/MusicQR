@@ -18,8 +18,8 @@ h1 {
     padding: 10px;
     text-decoration: none;
     color: initial;
-    font-size: 16px;
-    font-family: "Lucida Grande";
+    font-size: 13.5px;
+    font: "Times";
 }
 
 /*button {
