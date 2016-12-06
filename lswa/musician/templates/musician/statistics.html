@@ -14,9 +14,9 @@ function drawChart(){
                 {% endfor %}
 	]);
 	var options = {
-		chart: {title:'Daily Rank for Downloads'},
-		hAxis:{minValue:0, maxValue:8},
-		vAxis:{minValue:1, maxValue:20,
+		title:'Daily Rank for Downloads',
+		hAxis:{title:'Days ago',minValue:0, maxValue:8},
+		vAxis:{title:'Rank',minValue:1, maxValue:20,
 		       direction:-1},
 		width: 1400,
 		height: 500,
