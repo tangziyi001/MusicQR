@@ -1,7 +1,7 @@
 h1 {
     text-align:center
 }
-a.button {
+/*a.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
@@ -9,7 +9,7 @@ a.button {
     color: initial;
     width:200px;
     height:50px;
-}
+}*/
 button {
     width:200px;
     height:50px;
