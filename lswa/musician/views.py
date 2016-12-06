@@ -82,7 +82,6 @@ def getQRCode(request, music_id):
     h = hashlib.sha1()
     h.update(stringToHash)    
     tokenToAppendinURL = str(h.hexdigest())
-    print 'created token: ' + tokenToAppendinURL
 
     # save music query to database 
     newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
