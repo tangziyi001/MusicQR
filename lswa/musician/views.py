@@ -74,17 +74,14 @@ def artist_logout(request):
 # present a QR code on demand
 @csrf_exempt
 def getQRCode(request, music_id):
-    #print request.POST['music_id']
-    newMusic = Music.objects.get(id=music_id)
-    print newMusic.title
-    print newMusic.genre
-
     # generate token - save to database
     # generate URL with token --> this will be a QR code to be displayed
+    newMusic = Music.objects.get(id=music_id)
     stringToHash = str(time.time()) + str(newMusic.artist) + str(newMusic.title)
     h = hashlib.sha1()
     h.update(stringToHash)    
     tokenToAppendinURL = str(h.hexdigest())
+    print 'created token: ' + tokenToAppendinURL
 
     # save music query to database 
     newQuery = MusicQuery(query=newMusic, token=tokenToAppendinURL)
@@ -93,45 +90,35 @@ def getQRCode(request, music_id):
     #QR code to be displayed
     # url = pyqrcode.create('http://35.163.220.222:8000/musician/music/' + tokenToAppendinURL)
     url = pyqrcode.create('http://54.209.248.145:8000/musician/music/' + tokenToAppendinURL)
+    # url = pyqrcode.create('http://localhost:8000/musician/music/' + tokenToAppendinURL)
     # url = pyqrcode.create(ROOT_URL + '/musician/music/' + tokenToAppendinURL)
-    #url = pyqrcode.create('http://localhost:8000/musician/music/' + tokenToAppendinURL)
-
-    # for testing purpose - print url in console
-    print url
 
     # image_as_str = code.png_as_base64_str(scale=5)
     # html_img = '<img src="data:image/png;base64,{}">'.format(image_as_str)
     strToSave = 'musician/static/images/' + tokenToAppendinURL + '.png'
     url.png(strToSave, scale=6)  
-    #url.show()
     strToShow = '/static/images/' + tokenToAppendinURL + '.png'
     x = json.dumps({'qrpath': strToShow})
-    print x
     return JsonResponse(x, safe=False)
 
 # executed on QR code url
 def music_query(request, token):
     context = {}
-    print '* reached music_query'
     if request.method == 'GET':
-        print '** reached method is GET'
         # check token and serve page
         try:
             targetQuery = MusicQuery.objects.get(token=token)
             targetMusic = targetQuery.query
             context['music'] = targetMusic
             # context['url'] = 'http://35.163.220.222:8000/musician/download/' + token
-            #context['url'] = 'http://localhost:8000/musician/download/' + token
-            # context['url'] = ROOT_URL + '/musician/download/' + token
             context['url'] = 'http://54.209.248.145:8000/musician/download/' + token
+            # context['url'] = 'http://localhost:8000/musician/download/' + token
+            # context['url'] = ROOT_URL + '/musician/download/' + token
             context['showForm'] = True
-            print '** reached showForm = True'
         except Exception as e:
             context['showForm'] = False
-            print '** reached showForm = False'
         return render(request, 'musician/music.html',context)
     else:
-        print '** method is not GET??'
         return redirect('/musician')
 
 # download request handler
@@ -188,17 +175,9 @@ def artist(request, artist_id):
                 # The Music ID is automatically created after save()
                 newMusic.file_name = str(newMusic.id) + ext
                 newMusic.save()
-
-                #getQRCode(newMusic)
-
-
-                #url.svg('uca-url.svg', scale=8)
-                #print(url.terminal(quiet_zone=1))
-
                 dir_path = os.path.dirname(os.path.realpath(__file__))
                 handle_uploaded_file(request.FILES['music'], dir_path+'/music/'+newMusic.file_name)
                 messages.add_message(request, messages.INFO, "Music Upload Successful")
-
                 return redirect('/musician/artist/'+artist_id)
             except Exception as e:
                 messages.add_message(request, messages.ERROR, "Music Upload Failed")
