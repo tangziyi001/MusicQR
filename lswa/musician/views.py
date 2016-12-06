@@ -215,13 +215,17 @@ def statistics(request, artist_id, music_id):
         context['music_name'] = Music.objects.get(id=music_id).title
         today = datetime.now()
         stats = {}
+        nodata = 1 
 	for i in range(1,8):
 	    target_day = today-timedelta(i)
-            target_day.strftime("%Y-%m-%d")
+            target_day = target_day.strftime("%Y-%m-%d")
+            print target_day
             (date, count, rank) = backend_client.run_request(int(music_id),target_day)
 	    if rank != 0:
+                nodata = 0;
 	        stats[i] = rank
-	    else: stats[i] = 0;
+        if nodata == 1:
+            stats[0] = 0
         context['rank'] = stats;
         return render(request,'musician/statistics.html', context)
     else:
