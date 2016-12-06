@@ -86,7 +86,7 @@ DATABASES = {
 #     'HOST': 'tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com',
 #     'PORT': '3306'
 # }
-    
+
 
 'default': {
    'ENGINE': 'django.db.backends.mysql',
