@@ -58,14 +58,19 @@ def register(request):
     if request.method == 'GET':
         return render(request,'musician/register.html')
     else:
-        username = request.POST['username']
-        email = request.POST['email']
-        password = request.POST['password']
-        user = User.objects.create_user(username, email, password)
-        user.save()
-        login_user = authenticate(username=username, password=password)
-        login(request, login_user)
-        return redirect('/musician/artist/'+username+'/')
+        try:
+            username = request.POST['username']
+            email = request.POST['email']
+            password = request.POST['password']
+            user = User.objects.create_user(username, email, password)
+            user.save()
+            login_user = authenticate(username=username, password=password)
+            login(request, login_user)
+            return redirect('/musician/artist/'+username+'/')
+        except Exception as e:
+            messages.add_message(request, messages.ERROR, "Registration Failed: Duplicated Username")
+            logging.exception("message")
+            return redirect('/musician/register/')
 
 # logout user
 def artist_logout(request):
