@@ -1,0 +1,70 @@
+{% extends 'musician/base.html' %}
+{% block content %}
+<h1> Download Song </h1>
+<h2> Decode QR here </h2>
+<form enctype="multipart/form-data" action="http://api.qrserver.com/v1/read-qr-code/" method="POST">
+<!-- MAX_FILE_SIZE (maximum file size in bytes) must precede the file input field used to upload the QR code image -->
+<input type="hidden" name="MAX_FILE_SIZE" value="1048576" />
+<!-- The "name" of the input field has to be "file" as it is the name of the POST parameter -->
+Choose QR code image to read/scan: <input name="file" type="file" id="fileEntered"/>
+<input type="submit" value="Read QR code" class="qrbutton" />
+</form>
+<script>
+document.addEventListener('DOMContentLoaded', function(){
+
+	var getqrButton = document.getElementsByClassName("qrbutton")[0];
+
+	console.log(getqrButton.value);
+
+	getqrButton.addEventListener('click', function(evt){
+			
+		/*
+		evt.preventDefault();
+
+		var fe = document.getElementById("fileEntered");
+
+
+		var f = String(fe.value);
+
+		f = f.slice(0,2);
+		console.log(f);
+
+		var urlNotEncoded = 'http://api.qrserver.com/v1/create-qr-code/?data=' + f; 
+
+		var urlToEnCode = encodeURIComponent(urlNotEncoded); 
+
+		console.log(urlToEnCode);
+
+		var url = 'http://api.qrserver.com/v1/read-qr-code/?fileurl=' + urlToEnCode;
+
+		console.log(url);
+		var req = new XMLHttpRequest();
+
+		req.open('POST', url, true);
+
+		req.addEventListener('load', function(){
+
+			if (req.status >=200 && req.status < 400){
+				console.log("did it!");
+			}		
+			else{
+				console.log(req.responseText);
+				console.log("error :(");
+			}
+
+		});
+
+		req.addEventListener('error', function(req, res){
+			console.log("req has error");
+			document.body.appendChild(document.createTextNode("error!"));
+		})
+
+		req.setRequestHeader('Content-Type', 'application/x-www-form-urlencoded');
+		//req.setRequestHeader('Content-Type', 'multipart/form-data');
+		var f = document.getElementsByClassName('fileEntered');
+		req.send("fileurl=" + f);
+	*/
+	})
+})
+</script>
+{% endblock %}

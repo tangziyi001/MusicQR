@@ -78,24 +78,22 @@ WSGI_APPLICATION = 'lswa.wsgi.application'
 
 DATABASES = {
 
-
-
-'default': {
-  'ENGINE': 'django.db.backends.mysql',
-    'NAME': 'musician',
-    'USER': 'appserver',
-    'PASSWORD': 'foobarzoot',
-    'HOST': 'tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com',
-    'PORT': '3306'
-}
+# 'default': {
+#   'ENGINE': 'django.db.backends.mysql',
+#     'NAME': 'musician',
+#     'USER': 'appserver',
+#     'PASSWORD': 'foobarzoot',
+#     'HOST': 'tangdb.cyocc9onn55j.us-west-2.rds.amazonaws.com',
+#     'PORT': '3306'
+# }
     
 
-# 'default': {
-#    'ENGINE': 'django.db.backends.mysql',
-#     'OPTIONS': {
-#         'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
-#    },
-#  }
+'default': {
+   'ENGINE': 'django.db.backends.mysql',
+    'OPTIONS': {
+        'read_default_file': os.path.join(BASE_DIR, '..', 'db', 'my.cnf'),
+   },
+ }
     
 }
 
