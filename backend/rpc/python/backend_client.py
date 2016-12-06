@@ -7,9 +7,6 @@ def run_request(music_id, date):
     stub = backend_pb2.BackendStub(channel)
     req = backend_pb2.MusicRequest(date=str(date), music_id=music_id)
     res = stub.GetDownloadRankDaily(req)
-    print res.date
-    print res.count
-    print res.rankNumber
     return (res.date, res.count, res.rankNumber)
 
 if __name__ == '__main__':

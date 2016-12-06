@@ -1,11 +1,11 @@
 google.charts.load('current', {'packages':['line']});
 google.charts.setOnLoadCallback(drawChart);
-
+document.addEventListener("DOMContentLoaded", main);
+function main(){}
 function drawChart(){
 	var data = new google.visualization.DataTable();
 	data.addColumn('number','Day');
 	data.addColumn('number', 'Rank');
-	
 	data.addRows([
 		[1,2],
 		[2,5],
