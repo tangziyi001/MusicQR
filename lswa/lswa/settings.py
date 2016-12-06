@@ -138,8 +138,8 @@ USE_TZ = True
 # https://docs.djangoproject.com/en/1.9/howto/static-files/
 
 # ROOT_URL = 'http://localhost:8000'
-# ROOT_URL = 'http://35.163.220.222:8000'
-ROOT_URL = 'http://54.209.248.145:8000'
+ROOT_URL = 'http://35.163.220.222:8000'
+# ROOT_URL = 'http://54.209.248.145:8000'
 STATIC_URL = '/static/'
 
 LOGIN_URL = '/musician/login/'
