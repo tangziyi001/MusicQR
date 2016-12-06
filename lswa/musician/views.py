@@ -195,7 +195,8 @@ def statistics(request, artist_id, music_id):
         today = datetime.now()
         stats = {}
         nodata = 1 
-	for i in range(1,8):
+        print music_id
+	for i in range(0,8):
 	    target_day = today-timedelta(i)
             target_day = target_day.strftime("%Y-%m-%d")
             print target_day

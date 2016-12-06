@@ -1,13 +1,10 @@
 {% extends 'musician/base.html' %}
 {% block content %}
-<h1> Statistics for {{music_name}}</h1>
+<h1> Ranking History for {{music_name}}</h1>
 <script>
-google.charts.load('visualization', {'packages':['line']});
+google.charts.load('current', {'packages':['corechart']});
 google.charts.setOnLoadCallback(drawChart);
 function drawChart(){
-	// Load the Visualization API and the corechart package.
-
-      // Set a callback to run when the Google Visualization API is loaded.
 	var data = new google.visualization.DataTable();
 	data.addColumn('number','Day');
 	data.addColumn('number', 'Rank');
@@ -18,18 +15,13 @@ function drawChart(){
 	]);
 	var options = {
 		chart: {title:'Daily Rank for Downloads'},
-		vAxis: {
-			minValue:0,
-			viewWindow: {
-				min: 0
-			},
-			direction:-1,
-		},
-		width: 1000,
+		hAxis:{minValue:0, maxValue:8},
+		vAxis:{minValue:1, maxValue:20,
+		       direction:-1},
+		width: 1400,
 		height: 500,
-		
 	};
-	var chart = new google.charts.Line(document.getElementById('line_top_x'));
+	var chart = new google.visualization.LineChart(document.getElementById('line_top_x'));
 	chart.draw(data, options);
 	
 }
