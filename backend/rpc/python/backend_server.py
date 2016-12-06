@@ -5,7 +5,6 @@ import time
 import grpc
 import backend_pb2
 from query_sql import retrieve_rank 
-
 _ONE_DAY_IN_SECONDS = 60 * 60 * 24
 
 class Backend(backend_pb2.BackendServicer):

@@ -1,6 +1,35 @@
 {% extends 'musician/base.html' %}
 {% block content %}
 <h1> Statistics for {{music_name}}</h1>
-	<script>alert({{music_name}}) </script>
-	<div id="line_top_x"></div>
+<script>
+google.charts.load('visualization', {'packages':['line']});
+google.charts.setOnLoadCallback(drawChart);
+function drawChart(){
+	// Load the Visualization API and the corechart package.
+
+      // Set a callback to run when the Google Visualization API is loaded.
+	var data = new google.visualization.DataTable();
+	data.addColumn('number','Day');
+	data.addColumn('number', 'Rank');
+	data.addRows([
+                {% for k,v in rank.items %}
+		[{{k}},{{v}}],
+                {% endfor %}
+      
+	]);
+	var options = {
+		chart: {title:'Number of Downloads Daily Rank'},
+		width: 900,
+		height: 500,
+		axes: {
+			x:{0: {side:'bottom'}}
+		}
+		
+	}
+	var chart = new google.charts.Line(document.getElementById('line_top_x'));
+	chart.draw(data, options);
+	
+}
+</script>
+<div id="line_top_x"></div>
 {% endblock %}

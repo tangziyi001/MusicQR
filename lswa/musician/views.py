@@ -15,13 +15,15 @@ import hashlib
 import pyqrcode
 import time
 import logging
+from datetime import datetime, timedelta
 import qrcode
 import png
 import json
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-
-
+import sys
+sys.path.insert(0, '/home/ubuntu/LSWAProject/backend/rpc/python')
+import backend_client
 
 #mimetypes.add_type("image/svg+xml", ".svg", True)
 #mimetypes.add_type("image/svg+xml", ".svgz", True)
@@ -203,7 +205,16 @@ def statistics(request, artist_id, music_id):
         context = {}
         context['artist'] = artist_id
         context['music_name'] = Music.objects.get(id=music_id).title
-        today = time.strftime("%Y-%m-%d")
+        today = datetime.now()
+        stats = {}
+	for i in range(1,8):
+	    target_day = today-timedelta(i)
+            target_day.strftime("%Y-%m-%d")
+            (date, count, rank) = backend_client.run_request(int(music_id),target_day)
+	    if rank != 0:
+	        stats[i] = rank
+	    else: stats[i] = 0;
+        context['rank'] = stats;
         return render(request,'musician/statistics.html', context)
     else:
         messages.add_message(request, messages.ERROR, "No Access to This Page")
