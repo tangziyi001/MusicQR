@@ -17,13 +17,23 @@ function drawChart(){
                 {% endfor %}
 	]);
 	var options = {
-		chart: {title:'Number of Downloads Daily Rank'},
-		vAxis: {viewWindow:{min: 0}},
+		hAxis: {
+			minValue:0,
+			viewWindow: {
+				min: 0
+			},
+			direction:-1,
+		},
+chart: {title:'Daily Rank for Downloads'},
+		vAxis: {
+			minValue:0,
+			viewWindow: {
+				min: 0
+			},
+			direction:-1,
+		},
 		width: 1000,
 		height: 500,
-		axes: {
-			x:{0: {side:'bottom'}},
-		}
 		
 	};
 	var chart = new google.charts.Line(document.getElementById('line_top_x'));
