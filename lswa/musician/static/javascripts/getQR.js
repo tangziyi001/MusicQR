@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function() {
 
 var parentOfButton = document.getElementsByClassName('QRparent');
 
-console.log(parentOfButton);
+// console.log(parentOfButton);
 
 Array.prototype.forEach.call(parentOfButton, function(getQR){
 
@@ -11,6 +11,7 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 
 		var req = new XMLHttpRequest(); 
 
+		// var url = "http://54.209.248.145:8000/musician/getQRCode/" + getQR.id + '/'; 
 		var url = "http://35.163.220.222:8000/musician/getQRCode/" + getQR.id + '/'; 
 		//var url = "http://localhost:8000/musician/getQRCode/" + getQR.id + '/'; 
 
@@ -19,28 +20,14 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 		req.addEventListener('load', function(){
 			
 			if(req.status >= 200 && req.status < 400){
-		      var qrpath = JSON.parse(req.responseText);
-
-		      var arr = qrpath.split(':');
-
-        	  var str = arr[1].trim();
-
-        	  str = str.slice(1, str.length-2);
-
-			  console.log(str);
-
+		      var qrpath = JSON.parse(JSON.parse(req.responseText));
+		      var str = qrpath.qrpath;
 		     
 		      var strVal = 'divId' + String(getQR.id)
-		      console.log(strVal);
 		      var divId = document.getElementById(strVal);
-		      console.log(divId);
-
 		      var qrImg = document.createElement("Img");
 		      qrImg.setAttribute('src', str);
-		      console.log(qrImg['src']);
-
 		      divId.appendChild(qrImg);
-		     
 		    }
 		    else{
 		    	console.log(req.responseText)
