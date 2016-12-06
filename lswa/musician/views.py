@@ -15,10 +15,10 @@ from django.http import JsonResponse
 
 import os, sys, mimetypes, hashlib, pyqrcode, time
 import logging, qrcode, png, json
-import backend_client
+
 
 sys.path.insert(0, '/home/ubuntu/LSWAProject/backend/rpc/python')
-
+import backend_client
 #mimetypes.add_type("image/svg+xml", ".svg", True)
 #mimetypes.add_type("image/svg+xml", ".svgz", True)
 # Create your views here.
