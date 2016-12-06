@@ -11,15 +11,14 @@ h1 {
     height:50px;
 }
 */
-/*a.button {
+a.button {
     -webkit-appearance: button;
     -moz-appearance: button;
     appearance: button;
-
     text-decoration: none;
     color: initial;
 }
-*/
+
 button {
     width:200px;
     height:50px;
