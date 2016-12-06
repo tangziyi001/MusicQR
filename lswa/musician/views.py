@@ -203,7 +203,7 @@ def statistics(request, artist_id, music_id):
             (date, count, rank) = backend_client.run_request(int(music_id),target_day)
 	    if rank != 0:
                 nodata = 0;
-	        stats[i] = rank
+	        stats[i+1] = rank
         if nodata == 1:
             stats[0] = 0
         context['rank'] = stats;
