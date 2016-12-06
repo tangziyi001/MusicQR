@@ -13,9 +13,16 @@ from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
-import os, sys, mimetypes, hashlib, pyqrcode, time
-import logging, qrcode, png, json
-
+import os
+import sys
+import mimetypes
+import hashlib
+import pyqrcode
+import time
+import logging
+import qrcode
+import png
+import json
 
 sys.path.insert(0, '/home/ubuntu/LSWAProject/backend/rpc/python')
 import backend_client

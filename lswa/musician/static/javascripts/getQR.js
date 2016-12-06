@@ -11,7 +11,8 @@ Array.prototype.forEach.call(parentOfButton, function(getQR){
 
 		var req = new XMLHttpRequest(); 
 
-		var url = ROOT_URL + "/musician/getQRCode/" + getQR.id + '/'; 
+		var url = "http://54.209.248.145:8000/musician/getQRCode/" + getQR.id + '/'; 
+		// var url = "http://35.163.220.222:8000/musician/getQRCode/" + getQR.id + '/'; 
 		//var url = "http://localhost:8000/musician/getQRCode/" + getQR.id + '/'; 
 
 		req.open('GET', url, true);
