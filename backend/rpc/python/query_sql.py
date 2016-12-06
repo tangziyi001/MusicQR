@@ -8,9 +8,9 @@ def retrieve_rank(musicID, target_date):
   	     "FROM ranking "
      	     "WHERE MusicID = %s AND Date = %s")
     cursor.execute(query, (musicID, target_date))
-    result = ();
+    result = (0,0,0,"");
     for (music_id, count, rank, date) in cursor:
-       # print("{}, {}, {}, in  {:%d %b %Y}".format( music_id, count, rank, date))
+        print("Query Response: {}, {}, {}, in  {:%d %b %Y}".format( music_id, count, rank, date))
         result =  (music_id, count, rank, date)
     cursor.close()
     cnx.close()
