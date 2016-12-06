@@ -15,17 +15,17 @@ function drawChart(){
                 {% for k,v in rank.items %}
 		[{{k}},{{v}}],
                 {% endfor %}
-      
 	]);
 	var options = {
 		chart: {title:'Number of Downloads Daily Rank'},
-		width: 900,
+		vAxis: {viewWindow:{min: 0}},
+		width: 1000,
 		height: 500,
 		axes: {
-			x:{0: {side:'bottom'}}
+			x:{0: {side:'bottom'}},
 		}
 		
-	}
+	};
 	var chart = new google.charts.Line(document.getElementById('line_top_x'));
 	chart.draw(data, options);
 	
