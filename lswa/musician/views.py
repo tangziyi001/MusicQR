@@ -1,18 +1,19 @@
 from django.shortcuts import render
 from django.http import HttpResponse,HttpResponseRedirect
-from django.contrib.auth.models import User
-from django.contrib.auth import authenticate, login, logout
 from django.shortcuts import redirect
-from django.contrib.auth.decorators import login_required
 from django.contrib import messages
-from .models import Music, MusicQuery
+from django.contrib.auth import authenticate, login, logout
+from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
 from wsgiref.util import FileWrapper
+from .models import Music, MusicQuery
 from .models import Music, Download
 from handle_file import handle_uploaded_file, find_ext 
 from datetime import datetime, timedelta
 from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
-import os, sys mimetypes, hashlib, pyqrcode, time
+
+import os, sys, mimetypes, hashlib, pyqrcode, time
 import logging, qrcode, png, json, backend_client
 
 sys.path.insert(0, '/home/ubuntu/LSWAProject/backend/rpc/python')
