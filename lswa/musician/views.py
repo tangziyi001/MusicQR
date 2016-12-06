@@ -14,7 +14,8 @@ from django.views.decorators.csrf import csrf_exempt
 from django.http import JsonResponse
 
 import os, sys, mimetypes, hashlib, pyqrcode, time
-import logging, qrcode, png, json, backend_client
+import logging, qrcode, png, json
+import backend_client
 
 sys.path.insert(0, '/home/ubuntu/LSWAProject/backend/rpc/python')
 
