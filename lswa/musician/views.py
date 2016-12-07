@@ -201,14 +201,14 @@ def statistics(request, artist_id, music_id):
         stats = {}
         nodata = 1 
         print music_id
-	for i in range(0,8):
+	for i in range(1,8):
 	    target_day = today-timedelta(i)
             target_day = target_day.strftime("%Y-%m-%d")
             print target_day
             (date, count, rank) = backend_client.run_request(int(music_id),target_day)
 	    if rank != 0:
                 nodata = 0;
-	        stats[i+1] = rank
+	        stats[i] = rank
         if nodata == 1:
             stats[0] = 0
         context['rank'] = stats;

@@ -1,7 +1,9 @@
-# Final Project for Large Scale Web Application
+#MusicQR 
+## General Information
+This is the repository for final project of CSCI-UA480 Large Scale Web Application. The application has a music upload/download service with QR code generation & identification, and a backend ranking job activated on a daily bases and communicated via RPC.
+The application can be accessed [here](http://35.163.220.222:8000/musician/).
 
-This is the repository for final project of CSCI-UA480 Large Scale Web Application.
-
+## Development Guide
 ### Configure DB
 When the application is run on a new machine, make sure to install mysql and run ./install_db
 

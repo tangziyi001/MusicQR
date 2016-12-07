@@ -24,7 +24,7 @@ using namespace std;
 string curDate(){
     time_t t = std::time(nullptr);
     // Aggregate yesterday's result
-     t -= (24*60*60);
+    t -= (24*60*60);
     auto tm = *std::localtime(&t);
     std::ostringstream oss;
     oss << std::put_time(&tm, "%Y-%m-%d");
