@@ -4,10 +4,8 @@ This is the repository for final project of CSCI-UA480 Large Scale Web Applicati
 The application can be accessed [here](http://35.163.220.222:8000/musician/).
 
 ## Development Guide
-### Configure DB
-When the application is run on a new machine, make sure to install mysql and run ./install_db
 
-## Development
+## Collaborator Notes
 * It is recommanded to create a new branch for a specific development task. And then merge the branch with the master. However for convenience, it is ok to push to master directly since there is a backup branch.
 * It is recommanded to run local test on Linux machine. Follow the README.txt to setup the environment and tools
 
@@ -31,19 +29,19 @@ When the application is run on a new machine, make sure to install mysql and run
 
 ### Sync the database
 * $ source ./env/bin/activate
-* $ cd web/scalica
-* $ python manage.py makemigrations micro
+* $ cd lswa
+* $ python manage.py makemigrations musician
 * $ python manage.py migrate
 
 ### Setup Backend
-* Go to backend/
+* Go to backend
 * $ ./ini.sh
  
 ### After the first installation, from the project's directory
 Run the server:
 * $ source ./env/bin/activate
-* $ cd web/scalica
+* $ cd lswa
 * $ python manage.py runserver
 
-Access the site at http://localhost:8000/micro
+Access the site at http://localhost:8000/musician
 
