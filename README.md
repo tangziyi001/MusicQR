@@ -1,6 +1,7 @@
-# Final Project for Large Scale Web Application
+# MusicQR 
 
 This is the repository for final project of CSCI-UA480 Large Scale Web Application.
+The website can be accessed [here](http://35.163.220.222:8000/musician/).
 
 ### Configure DB
 When the application is run on a new machine, make sure to install mysql and run ./install_db
